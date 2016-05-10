@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>添加直播</title>
+</head>
+<body>
+<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data">
+		<label>标题</label><input type="text" name="title"><br/>
+		<label>讲师</label><input type="text" name="teacher"><br/>
+		<label>价钱</label><input type="text" name="price"><br/>
+		<label>简介</label><input type="text" name="abstract"><br/>
+		<label>开始时间</label><input type="date" name="time"><br/>
+		<label>结束时间</label><input type="date" name="endtime"><br/>
+		<label>封面图片</label><input type="file" name="pic"><br/>
+		<input type="submit" name="sub" value="提交"><br/>
+</form>
+</body>
+</html>
+<?php
+
+	try{
+		$stmt = new PDO('mysql:host=localhost;dbname=itss3',"itss","itss");
+	}catch(PDOException $e){
+		echo $e->getMessage();
+		echo "hee";
+		exit;
+	}
+// $teacher =$_POST['teacher'];
+// $title=$_POST['title'];
+// $price=$_POST['price'];
+// $startime=$_POST['startime'];
+// $endtime=$_POST['endtime'];
+if(isset($_POST['sub']) && $_POST['sub']!==''){
+ $sql="insert into it_zvideo_list (video_teacher,video_title,video_abstract,video_picture,video_time) values (:teacher,:title,:abstract,:picture,:time)";
+  $stmt->prepare($sql);
+echo 'nihao';
+var_dump($_POST);
+
+  $stmt->bindParam(':teacher',$_POST['teacher']);
+  $stmt->bindParam(':title',$_POST['title']);
+  $stmt->bindParam(':abstract',$_POST['abstract']);
+  $stmt->bindParam(':picture',$_POST['pic']);
+  $stmt->bindParam(':time',$_POST['time']);
+  // $stmt->bindParam(':teacher',$_POST['teacher']);
+echo 'nihao';
+  $stmt->execute();
+  if($stmt->rowCount()){
+  	echo '添加成功';
+  }else{
+  	echo "添加失败";
+  }
+}else{
+	echo "点击提交插入数据";
+}
+?>

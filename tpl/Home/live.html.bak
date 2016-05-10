@@ -1,0 +1,47 @@
+﻿<style>
+body{margin-top:80px;}
+#banner{background:url(images/live.jpg) top center no-repeat; height:442px;}
+#live{overflow:hidden; margin:30px;}
+#zvideo{float:left; background:#fff; width:78%; padding:1%; text-align:justify;}
+#zvideo li{width:30%; display:inline-block; background:#f8f8f8;}
+#zvideo li img{width:100%;}
+#zvideo li div{margin:0 10px;}
+#zvideo a{display:block; text-decoration:none;}
+#zvideo .title{color:#000; font:14px/30px '微软雅黑'; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+#zvideo .price{font:20px/20px '微软雅黑'; color:red;}
+#zvideo .timer{font:12px/30px '微软雅黑'; color:#999;}
+</style>
+<body>
+	<div id="banner"></div>
+	<div>
+<section id="live">
+	<div class="wrap">
+<ul id="zvideo">
+		<{section loop=$data name="ls"}>
+
+    	
+        	<li>
+            	<a href="./live2.php?uid=<{$data[ls].id}>">
+                	<img src="./files/day_160325/201603251339564454.png">
+                    <div class="title">标题:<{$data[ls].video_title}></div>
+                    <div class="price">&yen; <{$data[ls].video_price}></div>
+                    <div class="timer">时间:<{$data[ls].video_time|date_format:"%y-%m-%d %T"}></div>
+                </a>
+            </li>
+       
+		<{sectionelse}>	
+			数组中没有数据
+		<{/section}>
+ </ul>
+    </div>
+</section>
+	</div>
+		<{$page}>
+	</div>
+</div>
+
+<style>
+#userTopMenu{margin-top:20px !important;}
+#userTopMenu span{color:#fff;}
+</style>
+</body>

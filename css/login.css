@@ -1,0 +1,27 @@
+@charset "utf-8";
+
+mask{position:fixed; z-index:9999; top:0; left:0; height:100%; width:100%; background:#000; opacity:0.5;}
+.frmTab{position:fixed; z-index:10000; top:-1000px; background:#fff; border:#ddd solid 1px; padding:40px; width:280px; height:280px;}
+.frmTab #xx{display:block; text-align:right; font:30px/30px '微软雅黑'; position:absolute; top:5px; right:10px; color:#000; text-decoration:none;}
+.frmTab h1{font:bold 20px/20px '微软雅黑'; display:block; height:40px; margin:0; padding:0;}
+.frmTab .box{display:block; overflow:hidden; margin-bottom:20px;}
+.frmTab .box input{border:#ddd solid 1px; background:#fafafa; height:45px; padding:0 10px; width:250px; font-size:14px; outline:none;}
+.frmTab div{width:270px; overflow:hidden;}
+.frmTab div label{float:left; font-size:14px; color:#999;}
+.frmTab div a{float:right; font-size:14px; color:#10ae58; text-decoration:none;}
+.frmTab div a:hover{text-decoration:underline;}
+.frmTab button{width:270px; height:40px; margin-top:10px; border:0; background:#25ac48; color:#fff; font-size:15px; outline:none;}
+.frmTab button:hover{background:#27bc4e;}
+.frmTab .reg,.frmTab .login{font-size:13px; color:#10ae58; text-decoration:none; display:block; margin-top:10px;}
+.frmTab .reg font,.frmTab .login font{color:#999; font-size:13px;}
+.frmTab .reg:hover,.frmTab .login:hover{text-decoration:underline;}
+
+#regist{height:340px;}
+.tyxy{font-size:14px; color:#999;}
+.tyxy a{font-size:14px; color:blue; text-decoration:none;}
+.tyxy a:hover{text-decoration:underline;}
+
+#getCode{display:inline-block; border:#ddd solid 1px; border-left:0; height:47px; float:left; width:140px; text-align:center; padding:0; font-size:12px; background:#eee; color:#666;}
+#getCode:hover{background:#999; color:#fff;}
+#tip{position:fixed; z-index:100000; top:-50px; background:#fff; padding:10px; color:red;}
+
