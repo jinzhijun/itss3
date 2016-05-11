@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 include "inc/config.php";
 include "inc/user_info.php";
 ?>
@@ -378,18 +378,29 @@ $(function() {
 	<div class="wrap">
     	<h1>友情链接</h1>
         <ul>
-<?php
-	$dns= 'mysql:dbname=itss3;host=localhost'; 
-	$db = new PDO($dns,"itss","itss");
-	$sql = 'select * from it_link';
-	$result = $db->prepare($sql);
-	$result->execute();
-	$linkStr = '';
-	while($row = $result->fetch(PDO::FETCH_NUM)){
-		$linkStr.= "<li><a href='$row[3]' target='_blank'><img src='$row[2]'></a></li>\n";
-	}
-	echo  $linkStr;
- ?><li></li>
+        <li><a href="http://www.gov.cn/" target="_blank"><img src="linklogo/1.png"></a></li>
+        <li><a href="http://www.miit.gov.cn/" target="_blank"><img src="linklogo/2.jpg"></a></li>
+        <li><a href="http://www.itss.cn/" target="_blank"><img src="linklogo/3.png"></a></li>
+        <li><a href="http://www.itss-training.cn/" target="_blank"><img src="linklogo/4.jpg"></a></li>
+        <li><a href="http://www.cspiii.com/" target="_blank"><img src="linklogo/5.png"></a></li>
+        <li><a href="http://www.jseic.gov.cn/" target="_blank"><img src="linklogo/6.jpg"></a></li>
+        <li><a href="http://www.wuxi.gov.cn/" target="_blank"><img src="linklogo/7.png"></a></li>
+        <li><a href="http://etc.wuxi.gov.cn/" target="_blank"><img src="linklogo/8.jpg"></a></li>
+        <li><a href="http://xdj.wuxi.gov.cn/" target="_blank"><img src="linklogo/9.png"></a></li>
+        <li><a href="http://www.wxkjj.gov.cn/" target="_blank"><img src="linklogo/10.png"></a></li>
+        <li><a href="http://www.wxkjj.gov.cn/" target="_blank"><img src="linklogo/11.jpg"></a></li>
+        <li><a href="http://www.jnlab.com/" target="_blank"><img src="linklogo/12.jpg"></a></li>
+        <li><a href="http://www.jstc.org.cn/" target="_blank"><img src="linklogo/13.png"></a></li>
+        <li><a href="http://www.jssia.org/" target="_blank"><img src="linklogo/14.jpg"></a></li>
+        <li><a href="http://www.wx-rjxh.com/" target="_blank"><img src="linklogo/15.jpg"></a></li>
+        <li><a href="http://www.wxia.org.cn/" target="_blank"><img src="linklogo/16.jpg"></a></li>
+        <li><a href="http://www.apmg-international.com/" target="_blank"><img src="linklogo/17.jpg"></a></li>
+        <li><a href="http://www.sei.cmu.edu/" target="_blank"><img src="linklogo/18.png"></a></li>
+        <li><a href="http://www.iso.org/" target="_blank"><img src="linklogo/19.png"></a></li>
+        <li><a href="http://www.nc-info.com/" target="_blank"><img src="linklogo/19.jpg"></a></li>
+        <li><a href="http://www.itguanli.com/" target="_blank"><img src="linklogo/20.jpg"></a></li>
+        <li><a href="http://www.818hr.cn/" target="_blank"><img src="linklogo/21.jpg"></a></li>
+        <li></li>
         </ul>
     </div>
 </section>

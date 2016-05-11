@@ -22,7 +22,7 @@ $(function(){
 			success: function(e){
 				if(e.success==0){
 					if(e.msg==0){
-						window.location.href="/user/"
+						history.back(-1);
 						}else{
 							window.location.href="/teacher/";
 							}

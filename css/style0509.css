@@ -6,7 +6,7 @@ ul,li,h1,h2,h3,p,dd{margin:0; padding:0; list-style:none;}
 
 header{height:60px; box-shadow:1px 1px 10px #ccc; background:#fff;}
 #header{height:60px; position:relative;}
-#header #logo{padding:10px 0; display:inline-block; float:left;}
+#header #logo{padding-top:10px; display:inline-block; float:left;}
 #header #nav{display:inline-block; height:60px; overflow:hidden; margin-left:30px;}
 #header #nav li{display:inline-block;}
 #header #nav li a{display:block; padding:0 20px; font:15px/60px '微软雅黑'; color:#000; text-decoration:none;}
@@ -18,6 +18,11 @@ header{height:60px; box-shadow:1px 1px 10px #ccc; background:#fff;}
 #header #tool-box #login{ border-right:#999 solid 1px;}
 #header #q{width:150px; border:#ddd solid 1px; float:right; margin:11px 150px 0 0; border-radius:3px; padding:8px; font-size:14px; outline:none; background:#ddd url(images/seach_but_1.png) right center no-repeat;}
 #header #q:focus{ background-color:#fff; border:#3598db solid 1px; width:250px;}
+
+#user-box{position:absolute; top:10px; right:0;}
+#user-box font{display:block; color:#999; height:35px; width:50px; float:left; font:16px/39px '微软雅黑'; margin-right:5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+#user-box span{display:block; width:35px; height:35px; border:#f1f1f1 solid 2px; border-radius:100px; overflow:hidden;  float:left;}
+#user-box span img{width:100%; height:100%;}
 
 /*注册frm*/
 .lrFrm{background:#fff; width:700px; margin:0 auto; margin-top:60px; border-radius:10px; padding:50px 0 50px 80px;}
@@ -57,3 +62,55 @@ header{height:60px; box-shadow:1px 1px 10px #ccc; background:#fff;}
 #userinfo label input{position:absolute; top:-100px;}
 #userinfo input,#userinfo textarea{border:#e5e5e5 solid 1px; background:#f2f2f2; border-radius:3px; padding:10px; width:300px;}
 #userinfo #save{color:#fff; background:#3598db; width:80px;}
+
+/*分类*/
+#dh{font:14px/40px '微软雅黑'; padding-top:10px;}
+#cate{border:#ddd solid 1px; height:45px; margin-top:10px;}
+#cate span{float:left; display:block; width:80px; text-align:center; font:13px/45px '微软雅黑'; color:#999;}
+#cate a{display:inline-block; font:13px/45px '微软雅黑'; color:#000; text-decoration:none; margin-left:30px;}
+#cate a:hover{color:#3598db;}
+#cate b{float:left; display:block; font:13px/45px '微软雅黑';}
+
+/*课程列表*/
+.list ul{text-align:justify; margin-top:20px; overflow:hidden; width:100%;}
+.list ul:after{content:"";height:0;width:100%;display:inline-block;overflow:hidden;}
+.list ul li{border:#ddd solid 1px; display:inline-block; width:290px; height:260px; *display:inline;*zoom:1; margin-bottom:10px; overflow:hidden;}
+.list ul li:hover{box-shadow:1px 1px 3px #ccc;}
+.list ul li a{color:#000; text-decoration:none;}
+.list ul li a *{display:block;}
+.list ul li a font{padding:10px; font-size:16px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.list ul li a span{padding:0 10px; color:#999;}
+.list ul li a span *{display:inline-block; vertical-align:middle; margin-right:5px;}
+.list ul li a b{margin:10px 0 10px 10px; display:inline-block; background:#e5e5e5; color:#999; font-weight:normal; padding:2px 5px; border-radius:3px;}
+.list ul li p{padding:10px;}
+.list ul li p i{float:right; color:red; font:13px/13px '微软雅黑';}
+.list ul li.no{border:none; height:1px;}
+.list ul li.no:hover{ box-shadow:none;}
+
+#page{ padding:15px; text-align:center;}
+#page *{display:inline-block; font-weight:normal; padding:3px;}
+
+/*课程详情*/
+
+#vedio_header{background:#000; overflow:hidden; height:650px; position:relative;}
+#vedio_header .course_title h1{color:#fff; font:20px/50px '微软雅黑';}
+#vedio_header iframe{ position:absolute; top:50px; left:0; width:100%; height:600px;}
+
+#vedio_content,#vedio_teacher{background:#fff; box-shadow:1px 1px 5px #ccc; padding:20px;}
+#vedio_content h1,#vedio_teacher h1{border-bottom:#ddd solid 1px; font:18px/40px '微软雅黑';}
+
+#teacher #heagimg{width:80px; height:80px; border:#f1f1f1 solid 1px; border-radius:100px; overflow:hidden;}
+#teacher #heagimg img{width:100%; height:100%;}
+#teacher .teacher_name{font-size:14px; color:#555;}
+#teacher .introduction{color:#888; font:12px/22px '微软雅黑'; text-indent:2em;}
+#course_content{padding:20px; font:15px/25px '微软雅黑'; color:#888;}
+#course_content *{font:15px/25px '微软雅黑'; color:#888;}
+
+/*底部文件*/
+footer{background:#000;}
+#footer{padding:40px 0; overflow:hidden;}
+#footer ul{float:left; overflow:hidden; margin-left:100px;}
+#footer ul li{float:left; margin-right:60px;}
+#footer ul li h1{font:16px/30px '微软雅黑'; color:#fff;}
+#footer ul li a{display:block; color:#fff; text-decoration:none; font:12px/25px '微软雅黑'; opacity:0.8;}
+#footer ul li a:hover{opacity:1;}

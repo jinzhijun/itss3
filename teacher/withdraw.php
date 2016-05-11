@@ -50,12 +50,7 @@ include_once("../inc/new_header.php");
             <th>操作</th>
           </tr>
           <tr>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
+            <td height="80" colspan="6" align="center">暂无提现记录</td>
           </tr>
         </table>    </td>
   </tr>

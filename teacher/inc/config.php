@@ -14,4 +14,13 @@ $password = 'itss';
 $db = new PDO($dsn, $user, $password);
 $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 $db->exec('set names utf8');
+
+function json($success,$msg){
+	$arr = array(
+		'success'=>$success,
+		'msg'=>$msg
+		);
+	echo json_encode($arr);
+	exit;
+	}
 ?>

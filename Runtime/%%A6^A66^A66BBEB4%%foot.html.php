@@ -1,0 +1,17 @@
+<?php /* Smarty version 2.6.18, created on 2016-04-07 06:35:08
+         compiled from Public/foot.html */ ?>
+﻿<footer>
+	<div class="wrap">
+    	<ul>
+        	<li><a href="#">关于我们</a></li>
+        	<li><a href="#">加入ITSS云教育平台</a></li>
+        	<li><a href="#">联系我们</a></li>
+        	<li><a href="#">帮助中心</a></li>
+        	<li><a href="#">关于我们</a></li>
+        </ul>
+        <span>服务热线：0510-85389057</span><span>ITSS在线培训QQ交流群：514922693</span><br>
+        CopyRight ? 2012-2018 中国ITSS云教育平台 苏ICP备15003321号
+        <div class="wx"><img src="../images/code01.jpg"><br>关注ITSS微信</div>
+    </div>
+</footer>
+</html>

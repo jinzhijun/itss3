@@ -89,7 +89,7 @@ while($row=mysql_fetch_array($rs)){
 	$pageoffset = ($page_len-1)/2;//页码个数左右偏移量 
 	
 	$url='video.php?menu='.$menu.'&keyword='.$keyword;
-	$key='';  
+	$key=''; 
 	//$key.="<font>$page/$pages</font> "; //第几页,共几页 
 	if($page!=1){ 
 	$key.="<a href='".$url."&page=1'>首页</a> "; //第一页 
