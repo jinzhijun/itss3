@@ -60,7 +60,7 @@ $(function(){
 
 function upload(){//上传图片
   $.ajaxFileUpload({
-    url: '../upload.php',
+    url: '../upload.php', 
     type: 'post',
     secureuri: false,
     fileElementId: 'file',

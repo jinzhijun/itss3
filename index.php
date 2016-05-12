@@ -1,6 +1,8 @@
 <?php
-include "inc/config.php";
-include "inc/user_info.php";
+session_start();
+$userid=$_SESSION['userid'];
+$username=$_SESSION['username'];
+$classify=$_SESSION['classify'];
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -8,126 +10,131 @@ include "inc/user_info.php";
 <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" charset="utf-8">
 <title>中国ITSS云教育平台</title>
 <script src="http://www.itss3.cn/itss/JS/jquery.min.js" type="text/javascript"></script>
-<script src="js/jquery.login.js" type="text/javascript"></script>
 <style>
-body{margin:0; padding:0; background:#f8f8f8;}
+body{margin:0; padding:0;}
+img{border:0;}
+ul,li,h1,h2,h3,p,dd{margin:0; padding:0; list-style:none;}
 *{font-size:12px; font-family:'微软雅黑';}
 .wrap{width:1200px; margin:0 auto;}
-ul,p{margin:0; padding:0;}
-li{list-style:none;}
 
 /*顶部*/
-header{height:151px;}
-#header{height:100px;}
-#header .logo{float:left; margin:30px 0 0 0; display:block;}
-#header button{float:right; border:0; background:red; color:#fff; height:40px; width:90px; font-size:14px; margin:30px 0 0 0; outline:none; cursor:pointer;}
-#header button:hover{background:#F60;}
-#nav{height:50px; border-top:#ddd solid 1px; border-right:#ddd solid 1px; background:#fff; position:relative; z-index:999;}
+header,#header{height:100px; position:relative;}
+#header #logo{ position:absolute; top:30px; left:0;}
+#header #top_search_frm{width:450px; padding:30px 0 0 450px;}
+#header #top_search_frm *{float:left;}
+#header #top_search_frm #q{width:350px; height:35px; border:#3598db solid 2px; padding:0 10px; outline:none;}
+#header #top_search_frm #search_but{border:none; height:39px; width:50px; background:#3598db url(images/seach_but.png) center center no-repeat; background-size:40%; cursor:pointer; outline:none;}
+#header #top_search_frm #search_but:hover{background-color:#008ee6;}
+#header #top_search_frm #tip{width:100%; overflow:hidden;}
+#header #top_search_frm a{display:block; margin:0 5px; color:#999; text-decoration:none; line-height:20px;}
+#header #top_search_frm a:hover{color:#3598db;}
+#header #tool-box{position:absolute; top:45px; right:0;}
+#header #tool-box li{display:inline-block;}
+#header #tool-box li a{font:15px/15px '微软雅黑'; display:block; padding:0 10px; color:#999; text-decoration:none;}
+#header #tool-box li a:hover{color:#3598db;}
+#header #tool-box #login{ border-right:#999 solid 1px;}
+
+#user-box{position:absolute; top:10px; right:0;}
+#user-box font{display:block; color:#999; height:35px; width:50px; float:left; font:16px/39px '微软雅黑'; margin-right:5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+#user-box span{display:block; width:35px; height:35px; border:#f1f1f1 solid 2px; border-radius:100px; overflow:hidden;  float:left;}
+#user-box span img{width:100%; height:100%;}
+
+/*分类*/
+#nav{height:40px; position:relative;}
+#cate{width:245px; display:inline-block; position:relative;}
+#cate a{display:inline-block; text-decoration:none; padding-left:12px;}
+#cate h1{background:#3598db url(images/cate_icon.png) 8px center no-repeat; height:40px; padding-left:45px; font:16px/40px '微软雅黑'; color:#fff;}
+#cate ul{position:absolute; top:40px; left:0; width:100%; background:#008ee6; height:430px; z-index:999999;}
+#cate ul li{background:url(images/right-arrow.png) 220px 10px no-repeat; background-size:20px 20px; border-bottom:#3598db solid 1px; height:71px; position:relative;}
+#cate ul li:last-child{border:none;}
+#cate ul li:hover{background-color:#4a7dbe;}
+#cate h2 a{font:16px/40px '微软雅黑'; color:#fff; }
+#cate h2 a:hover{text-decoration:underline;}
+#cate p a{font:13px/20px '微软雅黑'; color:#fff; opacity:0.95;}
+#cate p a:hover{opacity:1;}
+#cate #right_cate{position:absolute; left:245px; top:0; width:400px; border:#4a7dbe solid 2px; padding:20px; background:rgba(255,255,255,0.8); display:none;}
+#cate #right_cate dd{border-bottom:#ddd solid 1px;}
+#cate #right_cate a{font-size:13px; line-height:40px; color:#000;}
+#cate #right_cate a:hover{color:#4a7dbe;}
+#cate h3{display:inline-block; width:100px;}
+#cate h3 a{color:#4a7dbe !important;}
 
 /*菜单*/
-#nav .cate{float:left; width:225px; height:51px; background:#31a030 url(images/cate.png) 20px center no-repeat; color:#fff; margin-top:-1px; margin-right:20px;}
-#nav .cate b{font:18px/48px '微软雅黑'; display:block; margin-left:50px;}
-#nav .cate ul{position:absolute; top:50px; left:0; height:415px; padding-top:15px; background:rgba(0, 0, 0, 0.5); width:225px;}
-#nav .cate ul li{padding:0 20px;}
-#nav .cate ul li div{overflow:hidden; padding:15px 0;}
-#nav .cate ul li:hover{}
-#nav .cate ul li a{font:15px/20px '微软雅黑'; color:#fff; padding:0; float:none;}
-#nav .cate ul li a:hover{background:none; text-decoration:underline;}
-#nav .cate ul li p{margin-top:8px;}
-#nav .cate ul li p a{display:inline-block; margin-right:10px; font:12px/20px '微软雅黑';}
-#nav a{float:left; display:block; padding:0 20px; font:16px/49px '微软雅黑'; color:#000; text-decoration:none;}
-#nav a:hover{background:#31a030; color:#fff;}
-#nav #search{float:right; border:#ddd solid 1px; background:url(images/seach.png) 10px center no-repeat; height:30px; padding-left:35px; margin:8px; outline:none; width:180px; font-size:13px;}
+#sNav{display:inline-block; margin-left:20px;}
+#sNav li{display:inline-block;}
+#sNav li a{display:block; padding:0 15px; font:15px/40px '微软雅黑'; color:#000; text-decoration:none;}
+#sNav li a:hover{color:#3598db;}
 
-#news{position:absolute; top:75px; right:0; background:#fff; width:224px;}
-#news img{margin-bottom:10px;}
-#news a{float:none; font:13px/30px '微软雅黑'; margin:0 20px; padding:0; display:block;white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
-#news a:hover{background:none; color:#31a030;}
-#news ul{margin-top:15px; border-top:#ddd solid 1px;}
-#news ul li{width:50%; float:left; padding:0; margin:0; background-color:#f8f8f8;}
-#news ul li a{color:#31a030; font:16px/50px '微软雅黑'; width:80%; text-align:center; padding:0; margin:0; padding-left:20%;}
-#news ul li a:hover{ text-decoration:underline;}
+/*公告列表*/
+#notice{position:absolute; z-index:99999; top:60px; right:0; width:240px; height:390px; background:rgba(0,0,0,0.6);}
+#notice center{padding:10px; background:#000; font:15px/22px '微软雅黑'; color:#fff;}
+#notice ul{padding:20px;}
+#notice a{color:#fff; text-decoration:none; line-height:30px; display:block; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+#notice a:hover{text-decoration:underline;}
+
+/*我要开课*/
+#apply_video{float:right; cursor:pointer; position:relative; background:url(images/down-arow.png) right center no-repeat; padding-right:20px;}
+#apply_video h1{font:14px/40px '微软雅黑';}
+#apply_video ul{display:none; position:absolute; z-index:99999999; top:40px; right:0; border:#ddd solid 1px; background:#fff; width:130px;}
+#apply_video ul li:first-child{border-bottom:#ddd solid 1px;}
+#apply_video ul li a{font:14px/40px '微软雅黑'; color:#000; text-decoration:none; display:block; padding:0 20px;}
+#apply_video ul li a:hover{color:#3598db;}
 
 /*幻灯片*/
-#banner{margin-bottom:40px;}
+#banner{margin-bottom:30px;}
 #focus{width:950px;height:430px;overflow:hidden;position:relative; margin:0 auto;}
 #focus ul{height:430px;position:absolute;}
 #focus ul li{float:left;width:950px;height:430px;overflow:hidden;position:relative;}
 #focus ul li div{position:absolute;overflow:hidden;}
 #focus .btnBg{position:absolute;width:950px;height:20px;left:0;bottom:0;}
 #focus .btn{position:absolute;width:930px; padding:5px 10px;right:0;bottom:20px;text-align:center;}
-#focus .btn span{display:inline-block;_display:inline;_zoom:1;width:10px;height:10px;_font-size:0;margin-left:5px;cursor:pointer;background:#fff;}
-#focus .btn span.on{background:#fff; height:15px;}
+#focus .btn span{display:inline-block;_display:inline;_zoom:1;width:8px;height:8px;_font-size:0;margin-left:5px;cursor:pointer; border-radius:100px; border:#000 solid 1px; background:#fff;}
+#focus .btn span.on{background:#000;}
 #focus .preNext{width:45px;height:100px;position:absolute;top:150px;background:url(images/sprite.png) no-repeat 0 0;cursor:pointer;}
 #focus .pre{left:130px;}
 #focus .next{right:130px;background-position:right top;}
 
+.list ul{text-align:justify; margin-top:20px; overflow:hidden; width:100%;}
+.list ul:after{content:"";height:0;width:100%;display:inline-block;overflow:hidden;}
+.list ul li{border:#ddd solid 1px; display:inline-block; width:290px; *display:inline;*zoom:1;}
+.list ul li:hover{box-shadow:1px 1px 3px #ccc;}
+.list ul li a{color:#000; text-decoration:none;}
+.list ul li a *{display:block;}
+.list ul li a font{padding:10px; font-size:16px;}
+.list ul li a span{padding:0 10px; color:#999;}
+.list ul li a span *{display:inline-block; vertical-align:middle; margin-right:5px;}
+.list ul li a b{margin:10px 0 10px 10px; display:inline-block; background:#e5e5e5; color:#999; font-weight:normal; padding:2px 5px; border-radius:3px;}
+.list ul li p{padding:10px;}
+.list ul li p i{float:right; color:red; font:13px/13px '微软雅黑';}
 
-/*课程列表样式*/
-.course ul{text-align:justify;}
-.course ul li{display:inline-block; overflow:hidden; margin-left:24px;}
-.course ul li *{display:block;}
-.course ul li:last-child{height:0;}
-.course ul li a{color:#000; text-decoration:none;}
-.course ul li a:hover{color:#39a030;}
-.course ul li span{overflow:hidden;}
-.course ul li span img{height:100%; width:100%;}
-.course ul li b{white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
-
-
-#free_course ul li{width:220px;}
-#free_course ul li span{width:220px; height:145px;}
-#free_course ul li b{font:14px/25px '微软雅黑';}
-#free_course ul li font{color:#999; font:12px/20px '微软雅黑';}
-
-#hot_course h1{font:25px/30px '微软雅黑'; display:block;}
-#hot_course h1 a{float:right; background:url(images/more.png) right center no-repeat; padding-right:20px; font-size:14px; color:#444; text-decoration:none;}
-#hot_course h1 a:hover{color:#000; text-decoration:underline;}
-#hot_course .left,#hot_course .right{float:left; width:220px; height:480px;}
-#hot_course .left img,#hot_course .right img{width:100%;}
-#hot_course .center{float:left; width:740px; height:480px; margin:0 10px;}
-#hot_course ul li{width:220px; margin-left:22px;}
-#hot_course ul li span{width:220px; height:145px;}
-#hot_course ul li b{font:14px/25px '微软雅黑';}
-#hot_course ul li font{color:#999; font:12px/20px '微软雅黑';}
-#hot_course ul li strong{color:red; font:20px/40px '微软雅黑';}
-
-#teacher{overflow:hidden;}
-#teacher h1{font:25px/30px '微软雅黑'; display:block;}
-#teacher h1 a{float:right; background:url(images/more.png) right center no-repeat; padding-right:20px; font-size:14px; color:#444; text-decoration:none;}
-#teacher h1 a:hover{color:#000; text-decoration:underline;}
-#teacher ul li{width:20%; float:left; }
-#teacher ul li a{margin:1px; display:block; height:230px; overflow:hidden; position:relative;}
-#teacher ul li img{width:100%;}
-#teacher ul li p{position:absolute; left:0; bottom:0; width:100%; height:30px; background:rgba(0, 0, 0, 0.5);}
-#teacher ul li p b{font:18px/30px '微软雅黑'; color:#fff; padding:0 10px;}
-#teacher ul li p font{font:12px/30px '微软雅黑'; color:#fff;}
+/*学习计划*/
+#plan h1{font:20px/20px '微软雅黑'; text-align:center;}
+/*列表*/
+#index_list{margin-top:30px;}
+#index_list h1{border-left:#3598db solid 8px; font:20px/28px '微软雅黑'; padding:0 10px;}
+#index_list h1 a{ float:right; color:#666; text-decoration:none; font-size:14px;}
 
 /*友情链接*/
-#weblink{background:#eee; overflow:hidden; margin-top:30px;}
-#weblink h1{font:20px/50px '微软雅黑'; border-bottom:#ddd solid 1px; overflow:hidden;}
-#weblink ul{text-align:justify; display:block; overflow:hidden; width:100%;}
-#weblink ul li{display:inline-block; width:120px; height:60px; margin-bottom:10px;}
-#weblink ul li img{border:#ddd solid 1px;}
+#link h1{background:url(images/link.png) left center no-repeat; padding:20px 40px; border-bottom:#ddd solid 1px; font-size:20px; font-weight:normal;}
+#link ul{overflow:hidden; width:100%;}
+#link ul li{width:12%; float:left;}
+#link ul li a{font:12px/40px '微软雅黑'; color:#000; text-decoration:none;}
 
-/*底部*/
-footer{background:#292b30; height:200px;}
-footer div{color:#ccc; font:14px/30px '微软雅黑'; position:relative;}
-footer div span{display:inline-block; margin-right:40px; font-size:14px;}
-footer ul{padding:30px 0 20px 0; display:block; width:100%; overflow:hidden;}
-footer ul li{float:left; margin-right:40px;}
-footer ul li a{color:#ccc; text-decoration:none; font-size:14px;}
-footer ul li a:hover{color:#fff;}
-footer .wx{position:absolute; top:30px; right:0; text-align:center; color:#ccc; line-height:16px;}
+footer{background:#000;}
+#footer{padding:40px 0; overflow:hidden;}
+#footer ul{float:left; overflow:hidden; margin-left:100px;}
+#footer ul li{float:left; margin-right:60px;}
+#footer ul li h1{font:16px/30px '微软雅黑'; color:#fff;}
+#footer ul li a{display:block; color:#fff; text-decoration:none; font:12px/25px '微软雅黑'; opacity:0.8;}
+#footer ul li a:hover{opacity:1;}
 </style>
-<link href="css/login.css" rel="stylesheet" type="text/css">
 <script>
 $(function() {
 	var sWidth = $("#focus").width(); //获取焦点图的宽度（显示面积）
 	var len = $("#focus ul li").length; //获取焦点图个数
 	var index = 0;
 	var picTimer;
-	var bgColor=['#082f96','#bcbfc4','#ffc701'];
+	var bgColor=['#bcbfc4','#082f96','#ffc701'];
 	
 	//以下代码添加数字按钮和按钮后的半透明条，还有上一页、下一页两个按钮
 	var btn = "<div class='btnBg'></div><div class='btn'>";
@@ -185,92 +192,147 @@ $(function() {
 		$("#focus ul").stop(true,false).css({"left":nowLeft,opacity:0}).animate({opacity:1},900); //通过animate()调整ul元素滚动到计算出的position
 		$('#banner').css({backgroundColor:bgColor[index],opacity:0}).animate({opacity:1},900);
 		$("#focus .btn span").removeClass("on").eq(index).addClass("on"); //为当前的按钮切换到选中的效果
-		$("#focus .btn span").stop(true,false).animate({"opacity":"0.4"},300).eq(index).stop(true,false).animate({"opacity":"1"},300); //为当前的按钮切换到选中的效果
+		$("#focus .btn span").stop(true,false).animate({"opacity":"1"},300).eq(index).stop(true,false).animate({"opacity":"1"},300); //为当前的按钮切换到选中的效果
 	}
 	
-	
-	//顶部分类
-	$('#nav .cate li').hover(function(){
-		$(this).find('a').css({color:'#000'});
-		$(this).find('p').find('a').css({color:'#444'});
+	//分类
+	$('#cate li').hover(function(){
+		$(this).find('div').show();
 		},function(){
-			$(this).find('a').css({color:'#fff'});
-			$(this).find('p').find('a').css({color:'#fff'});
-			})
-			
-	$('body .course a').hover(function(){
-		$(this).find('span').find('img').animate({width:'106%',height:'110%',margin:'-5%'},600)
-		},function(){
-			$(this).find('span').find('img').animate({width:'100%',height:'100%',margin:'0'},600)
+			$(this).find('div').hide();
 			});
 	
-	$('#header button').click(function(){
-		$('body').login();
-		});
-	$('#search').keyup(function(e){
-		if(e.keyCode==13){
-			window.location.href='find.php?keyword='+$(this).val();
-			}
-		});
-		
-	$.ajax({
-		type: "post", 
-		url: "json/menu.php",
-		dataType: "json", 
-		success: function(e){
-			var data=e.d;
-			for(var i=0; i<data.length; i++){
-				var d=data[i];
-				if(d.depth==0){
-					$('.cate ul').append('<li><div id="c'+d.id+'"><a href="#">'+d.name+'</a><p></p></div></li>')
-					}else{
-					$('.cate #c'+d.parentid).find('p').append('<a href="find.php?cateid='+d.id+'&parentid='+d.parentid+'">'+d.name+'</a>')	
-					}
-				}
-			}
-		});
+	//我要开课
+	$('#apply_video').hover(function(){
+		$(this).find('ul').show();
+		},function(){
+			$(this).find('ul').hide();
+			});
 });
 </script>
-
 </head>
 
 <body>
-
 <header>
-	<ul id="header" class="wrap">
-    	<a href="index.php" class="logo"><img src="images/logo.png"></a>
-        <button>登录/注册</button>
-        <?php include "inc/user_top.php";?>
-    </ul>
-    <div id="nav" class="wrap">
-    	<div class="cate">
-        	<b>全部课程</b>
-            <ul></ul>
-        </div>
-        <a href="index.php">首页</a>
-        <a href="#">课程体系</a>
-        <a href="find.php">找课程</a>
-        <a href="live.php">直播</a>
-        <a href="user/">学习中心</a>
-        <input type="text" id="search" placeholder="搜索">
-        
-        <div id="news">
-        	<img src="images/1.png">
-            <?php
-            $sql="select id,title,url from it_artical where cateid='1' order by id desc limit 5";
-			$rs=mysql_query($sql);
-			while($row=mysql_fetch_array($rs)){
-				echo '<a href="'.$row[2].'" target="_blank" title="'.$row[1].'">'.$row[1].'</a>';
-				}
-			?>
-            <ul>
-            	<li><a href="live.php" style="border-right:#ddd solid 1px; background:url(images/vod.png) 15px center no-repeat;">看直播</a></li>
-            	<li><a href="#" style="background:url(images/write.png) 15px center no-repeat;">做真题</a></li>
+	<div class="wrap" id="header">
+    	<a href="#" id="logo"><img src="images/logo.png"></a>
+        <div id="top_search_frm">
+            <input type="text" id="q" placeholder="搜索您感兴趣的课">
+            <input type="button" id="search_but">
+            <ul id="tip">
+                <li><a href="#">Android</a></li>
+                <li><a href="#">JAVA</a></li>
+                <li><a href="#">PHP</a></li>
             </ul>
         </div>
+        <?php
+        if(empty($userid)){
+		?>
+        <ul id="tool-box">
+        	<li id="login"><a href="/login.php">登录</a></li>
+        	<li id="register"><a href="/regist.php">注册</a></li>
+        </ul>
+        <?php
+		}else{
+		?>
+        <a href="#" id="user-box" title="进入个人中心">
+        	<font><?php echo $username?></font>
+            <span><img src="../images/headimgurl.jpg"></span>
+        </a>
+        <?php
+		}
+		?>
     </div>
 </header>
 
+<section>
+	<div id="nav" class="wrap">
+    	<div id="cate">
+        	<h1>全部课程</h1>
+            <ul>
+            	<li>
+                <h2><a href="#">ITSS·ITIL</a></h2>
+                <p><a href="#">IT服务项目经理</a><a href="#">ITIL2011</a></p>
+                <div id="right_cate">
+                	<dd><h3><a href="#">ITSS</a></h3><a href="#">IT服务项目经理</a><a href="#">IT服务工程师</a></dd>
+                	<dd><h3><a href="#">信用管理</a></h3><a href="#">信用管理师</a></dd>
+                	<dd><h3><a href="#">ITIL</a></h3><a href="#">ITIL2011</a><a href="#">Foundation</a></dd>
+                </div>
+                </li>
+            	<li>
+                <h2><a href="#">移动·前端</a></h2>
+                <p><a href="#">Android</a><a href="#">iOS</a><a href="#">JavaScript</a></p>
+                <div id="right_cate">
+                	<dd><h3><a href="#">移动开发</a></h3><a href="#">Android</a><a href="#">iOS</a></dd>
+                	<dd><h3><a href="#">前端开发</a></h3><a href="#">HTML5/CSS3</a><a href="#">JavaScript</a></dd>
+                	<dd><h3><a href="#">游戏开发</a></h3><a href="#">Cocos2D</a></dd>
+                </div>
+                </li>
+            	<li>
+                <h2><a href="#">后端·测试</a></h2>
+                <p><a href="#">JAVA</a><a href="#">PHP</a><a href="#">测试实操</a><a href="#">Lua</a></p>
+                <div id="right_cate">
+                	<dd><h3><a href="#">后端开发</a></h3><a href="#">JAVA</a><a href="#">C/C++</a><a href="#">数据库</a><a href="#">PHP</a><a href="#">Lua</a></dd>
+                	<dd><h3><a href="#">软件测试</a></h3><a href="#">软件测试基础</a><a href="#">测试实操</a></dd>
+                	<dd><h3><a href="#">大数据</a></h3><a href="#">Docker</a><a href="#">Hadoop</a><a href="#">Spark</a><a href="#">Scala</a></dd>
+                	<dd><h3><a href="#">开发工具</a></h3><a href="#">SVN</a></dd>
+                </div>
+                </li>
+            	<li>
+                <h2><a href="#">网络·运维</a></h2>
+                <p><a href="#">Linux</a><a href="#">思科</a><a href="#">华为</a></p>
+                <div id="right_cate">
+                	<dd><a href="#">红帽</a><a href="#">Linux</a><a href="#">思科</a><a href="#">华为</a></dd>
+                </div>
+                </li>
+            	<li>
+                <h2><a href="#">设计·办公</a></h2>
+                <p><a href="#">设计</a><a href="#">UI设计</a><a href="#">CG设计</a></p>
+                <div id="right_cate">
+                	<dd><h3><a href="#">设计</a></h3><a href="#">UI设计</a><a href="#">CG设计</a></dd>
+                	<dd><h3><a href="#">办公</a></h3><a href="#">PowerPoint</a><a href="#">Excel</a></dd>
+                </div>
+                </li>
+            	<li>
+                <h2><a href="#">电商·营销</a></h2>
+                <p><a href="#">网络营销</a><a href="#">跨境电商</a></p>
+                </li>
+            </ul>
+        </div>
+        <ul id="sNav">
+        	<li><a href="index.php">首页</a></li>
+        	<li><a href="CourseList.php">全部课程</a></li>
+        	<li><a href="zCourseList.php">直播课</a></li>
+        	<li><a href="/user/">学习中心</a></li>
+        </ul>
+        
+        <div id="notice">
+        	<ul>
+            	<li><a href="#">[直播] ITSS实训基地课程</a></li>
+            	<li><a href="#">[直播] ITSS实训基地课程</a></li>
+            	<li><a href="#">[直播] ITSS实训基地课程</a></li>
+            	<li><a href="#">[直播] ITSS实训基地课程</a></li>
+            	<li><a href="#">[直播] ITSS实训基地课程</a></li>
+            	<li><a href="#">[直播] ITSS实训基地课程</a></li>
+            	<li><a href="#">[直播] ITSS实训基地课程</a></li>
+            </ul>
+            <center>
+            <img src="images/code01.jpg"><br>
+            关注云教育，轻松学习
+            </center>
+        </div>
+        
+        <div id="apply_video">
+        	<h1>我要开课</h1>
+            <ul>
+            	<li><a href="#">培训机构开课</a></li>
+            	<li><a href="#">个人讲师开课</a></li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<!--banner-->
 <section id="banner">
     <div id="focus">
         <ul>
@@ -280,130 +342,368 @@ $(function() {
     </div>
 </section>
 
-<section class="wrap course" id="free_course">
-	<ul>
-		<li style="margin:0;"><a href="find.php?cid=1"><img src="images/mfhk.png"></a></li>
-        <?php
-		$str='';
-        $sql="select it_course.id,it_course.title,it_course.img,it_user_teacher.name from it_course 
-		      left join it_user_teacher on it_user_teacher.id=it_course.teacher_id
-			  where it_course.price='0' and it_course.isShow=1 and it_course.genre=0
-			  order by rand() limit 4";
-		$rs=mysql_query($sql);
-		while($row=mysql_fetch_array($rs)){
-			$str.='<li><a href="course.php?id='.$row[0].'">';
-			$str.='<span><img src="'.$row[2].'"></span>';
-			$str.='<b>'.$row[1].'</b>';
-			$str.='<font>'.$row[3].'</font>';
-			$str.='</li></a>';
-			}
-		echo $str;
-		?>
-        <li></li>
-    </ul>
-</section>
-
-<section class="wrap course" id="hot_course">
-    <h1>畅销好课<a href="find.php?cid=2">更多</a></h1>
-	<div class="left"><img src="images/itss03.jpg"></div>
-    <div class="center">
-	<ul>
-        <?php
-		$str='';
-        $sql="select it_course.id,it_course.title,it_course.img,it_user_teacher.name,it_course.price from it_course 
-		      left join it_user_teacher on it_user_teacher.id=it_course.teacher_id
-			  where it_course.price>0 and it_course.isShow=1 and it_course.genre=0
-			  order by it_course.id desc limit 0,10";
-		$rs=mysql_query($sql);
-		while($row=mysql_fetch_array($rs)){
-			$str.='<li><a href="course.php?id='.$row[0].'">';
-			$str.='<span><img src="'.$row[2].'"></span>';
-			$str.='<b>'.$row[1].'</b>';
-			$str.='<font>'.$row[3].'</font>';
-			$str.='<strong>&yen; '.$row[4].'</strong>';
-			$str.='</li></a>';
-			}
-		echo $str;
-		?>
-		<li>
-			<a href="#">
-			<span><img src="images/11.jpg"></span>
-			<b>互联网创业者的新修炼（3集）</b>
-			<font>程老师</font>
-            <strong>&yen; 25.00</strong>
-			</a>
-		</li>
-    </ul>
-    </div>
-    <div class="right"><img src="images/itss04.jpg"></div>
-</section>
-
-<section class="wrap" id="teacher">
-  <h1>名师大咖秀<a href="#">申请加入</a></h1>
-	<ul>
-    	<li>
-        	<a href="#">
-            <img src="http://www.itss3.cn/itss/UploadFiles/AttachInfoInformation/3b6faf5f-301b-40f3-88a8-8bedc8f1c54a.jpg">
-            <p><b>周平</b><font>特邀专家</font></p>
-            </a>
-        </li>
-    	<li>
-        	<a href="#">
-            <img src="http://www.itss3.cn/itss/UploadFiles/AttachInfoInformation/1b6fe335-5aac-4f83-aa1b-b44fb9ac4e59.jpg">
-            <p><b>宋跃武</b><font>特邀专家</font></p>
-            </a>
-        </li>
-    	<li>
-        	<a href="#">
-            <img src="http://www.itss3.cn/itss/UploadFiles/AttachInfoInformation/d4d10345-5f2e-4c4e-97f6-e9334e11c349.jpg">
-            <p><b>王志鹏</b><font>特邀专家</font></p>
-            </a>
-        </li>
-    	<li>
-        	<a href="#">
-            <img src="http://www.itss3.cn/itss/UploadFiles/AttachInfoInformation/b162d7a0-c637-456c-9fed-0fc55544c361.jpg">
-            <p><b>高波</b><font>IT专家</font></p>
-            </a>
-        </li>
-    	<li>
-        	<a href="#">
-            <img src="http://www.itss3.cn/itss/UploadFiles/AttachInfoInformation/51eb07b5-fd85-4be2-81d5-830b7a1efb17.jpg">
-            <p><b>姚李飞</b><font>PMP软考中高级项目经理讲师</font></p>
-            </a>
-        </li>
-    </ul>
-</section>
-
-<section id="weblink">
-	<div class="wrap">
-    	<h1>友情链接</h1>
+<!--学习方案-->
+<section>
+	<div class="wrap list" id="plan">
+    	<h1>根据职业目标 选择学习方案</h1>
         <ul>
-        <li><a href="http://www.gov.cn/" target="_blank"><img src="linklogo/1.png"></a></li>
-        <li><a href="http://www.miit.gov.cn/" target="_blank"><img src="linklogo/2.jpg"></a></li>
-        <li><a href="http://www.itss.cn/" target="_blank"><img src="linklogo/3.png"></a></li>
-        <li><a href="http://www.itss-training.cn/" target="_blank"><img src="linklogo/4.jpg"></a></li>
-        <li><a href="http://www.cspiii.com/" target="_blank"><img src="linklogo/5.png"></a></li>
-        <li><a href="http://www.jseic.gov.cn/" target="_blank"><img src="linklogo/6.jpg"></a></li>
-        <li><a href="http://www.wuxi.gov.cn/" target="_blank"><img src="linklogo/7.png"></a></li>
-        <li><a href="http://etc.wuxi.gov.cn/" target="_blank"><img src="linklogo/8.jpg"></a></li>
-        <li><a href="http://xdj.wuxi.gov.cn/" target="_blank"><img src="linklogo/9.png"></a></li>
-        <li><a href="http://www.wxkjj.gov.cn/" target="_blank"><img src="linklogo/10.png"></a></li>
-        <li><a href="http://www.wxkjj.gov.cn/" target="_blank"><img src="linklogo/11.jpg"></a></li>
-        <li><a href="http://www.jnlab.com/" target="_blank"><img src="linklogo/12.jpg"></a></li>
-        <li><a href="http://www.jstc.org.cn/" target="_blank"><img src="linklogo/13.png"></a></li>
-        <li><a href="http://www.jssia.org/" target="_blank"><img src="linklogo/14.jpg"></a></li>
-        <li><a href="http://www.wx-rjxh.com/" target="_blank"><img src="linklogo/15.jpg"></a></li>
-        <li><a href="http://www.wxia.org.cn/" target="_blank"><img src="linklogo/16.jpg"></a></li>
-        <li><a href="http://www.apmg-international.com/" target="_blank"><img src="linklogo/17.jpg"></a></li>
-        <li><a href="http://www.sei.cmu.edu/" target="_blank"><img src="linklogo/18.png"></a></li>
-        <li><a href="http://www.iso.org/" target="_blank"><img src="linklogo/19.png"></a></li>
-        <li><a href="http://www.nc-info.com/" target="_blank"><img src="linklogo/19.jpg"></a></li>
-        <li><a href="http://www.itguanli.com/" target="_blank"><img src="linklogo/20.jpg"></a></li>
-        <li><a href="http://www.818hr.cn/" target="_blank"><img src="linklogo/21.jpg"></a></li>
-        <li></li>
+        	<li>
+                <a href="#">
+                <img src="images/temp_1443083125329.jpg">
+                <font>HTML5前端工程师</font>
+                <span>23门课 / 19228人学习 / 28小时41分</span>
+                <b>HTML5</b><b>CSS3</b><b>JS</b>
+                </a>
+            </li> 
+        	<li>
+                <a href="#">
+                <img src="http://124.192.148.8//picture/school/YL_SCHEME/temp_1451027024307.png">
+                <font>iOS工程师</font>
+                <span>23门课 / 19228人学习 / 28小时41分</span>
+                <b>HTML5</b><b>CSS3</b><b>JS</b>
+                </a>
+            </li> 
+        	<li>
+                <a href="#">
+                <img src="http://124.192.148.8//picture/school/YL_SCHEME/temp_1448528655899.png">
+                <font>UI设计师</font>
+                <span>23门课 / 19228人学习 / 28小时41分</span>
+                <b>HTML5</b><b>CSS3</b><b>JS</b>
+                </a>
+            </li> 
+        	<li>
+                <a href="#">
+                <img src="http://124.192.148.8//picture/school/YL_SCHEME/temp_1453451340055.png">
+                <font>JAVA SE工程师</font>
+                <span>23门课 / 19228人学习 / 28小时41分</span>
+                <b>HTML5</b><b>CSS3</b><b>JS</b>
+                </a>
+            </li> 
         </ul>
     </div>
 </section>
-<?php include 'inc/footer.php';?>
+
+<section>
+	<div id="index_list" class="wrap list">
+    	<h1>ITSS·ITIL <a href="#">更多 ></a></h1>
+        <ul>
+        	<li>
+                <a href="#">
+                <img src="http://124.192.148.8/picture/course/182/1437640810423.jpg" width="100%">
+                <font>JAVA SE工程师</font>
+                <span><img src="images/user-icon.png">19228人学习 <img src="images/timer-icon.png" style="margin-left:10px;">1小时10份</span>
+                <p>更新至第5节 <i>免费</i></p>
+                </a>
+            </li> 
+        	<li>
+                <a href="#">
+                <img src="http://124.192.148.8/picture/course/252/1437379962653.jpg" width="100%">
+                <font>JAVA SE工程师</font>
+                <span><img src="images/user-icon.png">19228人学习 <img src="images/timer-icon.png" style="margin-left:10px;">1小时10份</span>
+                <p>更新至第5节 <i>免费</i></p>
+                </a>
+            </li> 
+        	<li>
+                <a href="#">
+                <img src="http://124.192.148.8/picture/course/714/1452741470871.png" width="100%">
+                <font>JAVA SE工程师</font>
+                <span><img src="images/user-icon.png">19228人学习 <img src="images/timer-icon.png" style="margin-left:10px;">1小时10份</span>
+                <p>更新至第5节 <i>免费</i></p>
+                </a>
+            </li> 
+        	<li>
+                <a href="#">
+                <img src="http://124.192.148.8/picture/course/42/1461814294044.jpg" width="100%">
+                <font>JAVA SE工程师</font>
+                <span><img src="images/user-icon.png">19228人学习 <img src="images/timer-icon.png" style="margin-left:10px;">1小时10份</span>
+                <p>更新至第5节 <i>免费</i></p>
+                </a>
+            </li> 
+        </ul>
+    </div>
+</section>
+
+<section>
+	<div id="index_list" class="wrap list">
+    	<h1>移动·前端 <a href="#">更多 ></a></h1>
+        <ul>
+        	<li>
+                <a href="#">
+                <img src="http://124.192.148.8/picture/course/182/1437640810423.jpg" width="100%">
+                <font>JAVA SE工程师</font>
+                <span><img src="images/user-icon.png">19228人学习 <img src="images/timer-icon.png" style="margin-left:10px;">1小时10份</span>
+                <p>更新至第5节 <i>免费</i></p>
+                </a>
+            </li> 
+        	<li>
+                <a href="#">
+                <img src="http://124.192.148.8/picture/course/252/1437379962653.jpg" width="100%">
+                <font>JAVA SE工程师</font>
+                <span><img src="images/user-icon.png">19228人学习 <img src="images/timer-icon.png" style="margin-left:10px;">1小时10份</span>
+                <p>更新至第5节 <i>免费</i></p>
+                </a>
+            </li> 
+        	<li>
+                <a href="#">
+                <img src="http://124.192.148.8/picture/course/714/1452741470871.png" width="100%">
+                <font>JAVA SE工程师</font>
+                <span><img src="images/user-icon.png">19228人学习 <img src="images/timer-icon.png" style="margin-left:10px;">1小时10份</span>
+                <p>更新至第5节 <i>免费</i></p>
+                </a>
+            </li> 
+        	<li>
+                <a href="#">
+                <img src="http://124.192.148.8/picture/course/42/1461814294044.jpg" width="100%">
+                <font>JAVA SE工程师</font>
+                <span><img src="images/user-icon.png">19228人学习 <img src="images/timer-icon.png" style="margin-left:10px;">1小时10份</span>
+                <p>更新至第5节 <i>免费</i></p>
+                </a>
+            </li> 
+        </ul>
+    </div>
+</section>
+
+<section>
+	<div id="index_list" class="wrap list">
+    	<h1>ITSS·ITIL <a href="#">更多 ></a></h1>
+        <ul>
+        	<li>
+                <a href="#">
+                <img src="http://124.192.148.8/picture/course/182/1437640810423.jpg" width="100%">
+                <font>JAVA SE工程师</font>
+                <span><img src="images/user-icon.png">19228人学习 <img src="images/timer-icon.png" style="margin-left:10px;">1小时10份</span>
+                <p>更新至第5节 <i>免费</i></p>
+                </a>
+            </li> 
+        	<li>
+                <a href="#">
+                <img src="http://124.192.148.8/picture/course/252/1437379962653.jpg" width="100%">
+                <font>JAVA SE工程师</font>
+                <span><img src="images/user-icon.png">19228人学习 <img src="images/timer-icon.png" style="margin-left:10px;">1小时10份</span>
+                <p>更新至第5节 <i>免费</i></p>
+                </a>
+            </li> 
+        	<li>
+                <a href="#">
+                <img src="http://124.192.148.8/picture/course/714/1452741470871.png" width="100%">
+                <font>JAVA SE工程师</font>
+                <span><img src="images/user-icon.png">19228人学习 <img src="images/timer-icon.png" style="margin-left:10px;">1小时10份</span>
+                <p>更新至第5节 <i>免费</i></p>
+                </a>
+            </li> 
+        	<li>
+                <a href="#">
+                <img src="http://124.192.148.8/picture/course/42/1461814294044.jpg" width="100%">
+                <font>JAVA SE工程师</font>
+                <span><img src="images/user-icon.png">19228人学习 <img src="images/timer-icon.png" style="margin-left:10px;">1小时10份</span>
+                <p>更新至第5节 <i>免费</i></p>
+                </a>
+            </li> 
+        </ul>
+    </div>
+</section>
+
+<section>
+	<div id="index_list" class="wrap list">
+    	<h1>后端·测试 <a href="#">更多 ></a></h1>
+        <ul>
+        	<li>
+                <a href="#">
+                <img src="http://124.192.148.8/picture/course/182/1437640810423.jpg" width="100%">
+                <font>JAVA SE工程师</font>
+                <span><img src="images/user-icon.png">19228人学习 <img src="images/timer-icon.png" style="margin-left:10px;">1小时10份</span>
+                <p>更新至第5节 <i>免费</i></p>
+                </a>
+            </li> 
+        	<li>
+                <a href="#">
+                <img src="http://124.192.148.8/picture/course/252/1437379962653.jpg" width="100%">
+                <font>JAVA SE工程师</font>
+                <span><img src="images/user-icon.png">19228人学习 <img src="images/timer-icon.png" style="margin-left:10px;">1小时10份</span>
+                <p>更新至第5节 <i>免费</i></p>
+                </a>
+            </li> 
+        	<li>
+                <a href="#">
+                <img src="http://124.192.148.8/picture/course/714/1452741470871.png" width="100%">
+                <font>JAVA SE工程师</font>
+                <span><img src="images/user-icon.png">19228人学习 <img src="images/timer-icon.png" style="margin-left:10px;">1小时10份</span>
+                <p>更新至第5节 <i>免费</i></p>
+                </a>
+            </li> 
+        	<li>
+                <a href="#">
+                <img src="http://124.192.148.8/picture/course/42/1461814294044.jpg" width="100%">
+                <font>JAVA SE工程师</font>
+                <span><img src="images/user-icon.png">19228人学习 <img src="images/timer-icon.png" style="margin-left:10px;">1小时10份</span>
+                <p>更新至第5节 <i>免费</i></p>
+                </a>
+            </li> 
+        </ul>
+    </div>
+</section>
+
+<section>
+	<div id="index_list" class="wrap list">
+    	<h1>网络·运维 <a href="#">更多 ></a></h1>
+        <ul>
+        	<li>
+                <a href="#">
+                <img src="http://124.192.148.8/picture/course/182/1437640810423.jpg" width="100%">
+                <font>JAVA SE工程师</font>
+                <span><img src="images/user-icon.png">19228人学习 <img src="images/timer-icon.png" style="margin-left:10px;">1小时10份</span>
+                <p>更新至第5节 <i>免费</i></p>
+                </a>
+            </li> 
+        	<li>
+                <a href="#">
+                <img src="http://124.192.148.8/picture/course/252/1437379962653.jpg" width="100%">
+                <font>JAVA SE工程师</font>
+                <span><img src="images/user-icon.png">19228人学习 <img src="images/timer-icon.png" style="margin-left:10px;">1小时10份</span>
+                <p>更新至第5节 <i>免费</i></p>
+                </a>
+            </li> 
+        	<li>
+                <a href="#">
+                <img src="http://124.192.148.8/picture/course/714/1452741470871.png" width="100%">
+                <font>JAVA SE工程师</font>
+                <span><img src="images/user-icon.png">19228人学习 <img src="images/timer-icon.png" style="margin-left:10px;">1小时10份</span>
+                <p>更新至第5节 <i>免费</i></p>
+                </a>
+            </li> 
+        	<li>
+                <a href="#">
+                <img src="http://124.192.148.8/picture/course/42/1461814294044.jpg" width="100%">
+                <font>JAVA SE工程师</font>
+                <span><img src="images/user-icon.png">19228人学习 <img src="images/timer-icon.png" style="margin-left:10px;">1小时10份</span>
+                <p>更新至第5节 <i>免费</i></p>
+                </a>
+            </li> 
+        </ul>
+    </div>
+</section>
+
+
+<section>
+	<div id="index_list" class="wrap list">
+    	<h1>设计·办公 <a href="#">更多 ></a></h1>
+        <ul>
+        	<li>
+                <a href="#">
+                <img src="http://124.192.148.8/picture/course/182/1437640810423.jpg" width="100%">
+                <font>JAVA SE工程师</font>
+                <span><img src="images/user-icon.png">19228人学习 <img src="images/timer-icon.png" style="margin-left:10px;">1小时10份</span>
+                <p>更新至第5节 <i>免费</i></p>
+                </a>
+            </li> 
+        	<li>
+                <a href="#">
+                <img src="http://124.192.148.8/picture/course/252/1437379962653.jpg" width="100%">
+                <font>JAVA SE工程师</font>
+                <span><img src="images/user-icon.png">19228人学习 <img src="images/timer-icon.png" style="margin-left:10px;">1小时10份</span>
+                <p>更新至第5节 <i>免费</i></p>
+                </a>
+            </li> 
+        	<li>
+                <a href="#">
+                <img src="http://124.192.148.8/picture/course/714/1452741470871.png" width="100%">
+                <font>JAVA SE工程师</font>
+                <span><img src="images/user-icon.png">19228人学习 <img src="images/timer-icon.png" style="margin-left:10px;">1小时10份</span>
+                <p>更新至第5节 <i>免费</i></p>
+                </a>
+            </li> 
+        	<li>
+                <a href="#">
+                <img src="http://124.192.148.8/picture/course/42/1461814294044.jpg" width="100%">
+                <font>JAVA SE工程师</font>
+                <span><img src="images/user-icon.png">19228人学习 <img src="images/timer-icon.png" style="margin-left:10px;">1小时10份</span>
+                <p>更新至第5节 <i>免费</i></p>
+                </a>
+            </li> 
+        </ul>
+    </div>
+</section>
+
+<section>
+	<div id="index_list" class="wrap list">
+    	<h1>电商·营销 <a href="#">更多 ></a></h1>
+        <ul>
+        	<li>
+                <a href="#">
+                <img src="http://124.192.148.8/picture/course/182/1437640810423.jpg" width="100%">
+                <font>JAVA SE工程师</font>
+                <span><img src="images/user-icon.png">19228人学习 <img src="images/timer-icon.png" style="margin-left:10px;">1小时10份</span>
+                <p>更新至第5节 <i>免费</i></p>
+                </a>
+            </li> 
+        	<li>
+                <a href="#">
+                <img src="http://124.192.148.8/picture/course/252/1437379962653.jpg" width="100%">
+                <font>JAVA SE工程师</font>
+                <span><img src="images/user-icon.png">19228人学习 <img src="images/timer-icon.png" style="margin-left:10px;">1小时10份</span>
+                <p>更新至第5节 <i>免费</i></p>
+                </a>
+            </li> 
+        	<li>
+                <a href="#">
+                <img src="http://124.192.148.8/picture/course/714/1452741470871.png" width="100%">
+                <font>JAVA SE工程师</font>
+                <span><img src="images/user-icon.png">19228人学习 <img src="images/timer-icon.png" style="margin-left:10px;">1小时10份</span>
+                <p>更新至第5节 <i>免费</i></p>
+                </a>
+            </li> 
+        	<li>
+                <a href="#">
+                <img src="http://124.192.148.8/picture/course/42/1461814294044.jpg" width="100%">
+                <font>JAVA SE工程师</font>
+                <span><img src="images/user-icon.png">19228人学习 <img src="images/timer-icon.png" style="margin-left:10px;">1小时10份</span>
+                <p>更新至第5节 <i>免费</i></p>
+                </a>
+            </li> 
+        </ul>
+    </div>
+</section>
+
+<section style="background:#f2f2f2; margin-top:50px;">
+	<div class="wrap" id="link">
+    	<h1>友情链接</h1>
+        <ul>
+        	<li><a href="#">中国ITSS实训基地</a></li>
+        	<li><a href="#">中国ITSS实训基地</a></li>
+        	<li><a href="#">中国ITSS实训基地</a></li>
+        	<li><a href="#">中国ITSS实训基地</a></li>
+        	<li><a href="#">中国ITSS实训基地</a></li>
+        	<li><a href="#">中国ITSS实训基地</a></li>
+        </ul>
+    </div>
+</section>
+
+<footer>
+	<div id="footer" class="wrap">
+    	<img src="images/logo-w-1.png" style="float:left;">
+    	<ul>
+        	<li>
+            <h1>关于我们</h1>
+            <a href="#">云教育简介</a>
+            <a href="#">免责声明</a>
+            <a href="#">联系方式</a>
+            <a href="#">推广联盟</a>
+            </li>
+        	<li>
+            <h1>帮助中心</h1>
+            <a href="#">会员权益</a>
+            <a href="#">如何观看</a>
+            <a href="#">忘记密码</a>
+            <a href="#">常见问题</a>
+            </li>
+        	<li>
+            <h1>商务合作</h1>
+            <a href="#">渠道合作</a>
+            <a href="#">讲师合作</a>
+            </li>
+        </ul>
+        <div style="float:right; font:13px/25px '微软雅黑'; color:#fff; text-align:center;"><img src="images/code01.jpg"><br>关注云教育微信</div>
+    </div>
+</footer>
 </body>
 </html>

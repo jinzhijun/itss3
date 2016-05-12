@@ -4,39 +4,24 @@ $parentid=$_GET['cateid'];
 $pid=$_GET['pid'];
 $depth=$_GET['depth'];
 if(empty($parentid)) $parentid=0;
-// function category($parentid){
-// 	try {
-// 		$db_pdo = new PDO('mysql:host=localhost;dbname=itss3',"itss","itss");
-// 	} catch (PDOException $e) {
-// 		echo $e->getMessage();
-// 		die();
-// 	}
-// 	$sql = "SELECT * FROM it_course_category WHERE parentid = :parentid";
-// 	$stmt = $db_pdo->prepare($sql);
-// 	$stmt->bindParam(":parentid",$parentid);
-// 	$stmt->execute();
-// 	$row = $stmt->fetch(PDO::FETCH_ASSOC);
-// 	switch ($row['depth']) {
-// 		case '0':
-// 			echo '<a href="CourseList.php?cateid=$'.$row['id'].'">'.$row['name'].'</a>';
-// 			break;
-// 		case '1':
-// 			$sql = "SELECT * FROM it_course_category WHERE id=:parentid";
-// 			$stmt_1 = $db_pdo->prepare($sql_1);
-// 			$stmt_1->bindParam(":parentid",$parentid);
-// 			$stmt_1->execute();
-// 			$row_1 = $stmt_1->fetch(PDO::FETCH_ASSOC);
-// 			echo $row_1['name'];
-// 			break;
-		
-// 		default:
-// 			# code...
-// 			break;
-// 	}
-// 		// echo '<a href="CourseList.php?cateid=$'.$row['id'].'">'.$row['name'].'</a>';
-	
-// }
 
+$sql="select pid from it_course_category where id='$parentid'";
+$row=mysql_fetch_array(mysql_query($sql));
+if($row){
+	$nextid=$row[0];
+	}
+
+function category($id){
+	$sql="select depth,parentid,name from it_course_category where id='$id'";
+	$row=mysql_fetch_array(mysql_query($sql));
+	if($row){
+		$depth=$row['depth'];
+		$offid=$row['parentid'];
+		$name=$row['name'];
+		echo '<i>></i><a href="CourseList.php?cateid='.$id.'&pid='.$offid.'">'.$name.'</a>';
+		category($offid);
+		}
+	}
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -45,7 +30,6 @@ if(empty($parentid)) $parentid=0;
 <title>中国ITSS云教育平台</title>
 <script src="http://www.itss3.cn/itss/JS/jquery.min.js" type="text/javascript"></script>
 <script src="js/course.cate.js" type="text/javascript"></script>
-<!-- <script src="js/course.dh.js" type="text/javascript"></script> -->
 <script>
 $(function(){
 	category('CourseList.php')
@@ -58,7 +42,12 @@ $(function(){
 <?php
 include_once("inc/new_header.php");
 ?>
-<section class="wrap" id="dh">你在这里：</section>
+<section class="wrap" id="dh">
+<span><b>您在这里：</b></span>
+<span><i>></i><a href="zCourseList.php">全部课程</a></span>
+<span><?php category($parentid);?></span>
+<span id="count"><b>（相关课程共0门）</b></span>
+</section>
 <section class="wrap" id="cate"></section>
 <section>
 	<div id="CourserList" class="wrap list">
@@ -101,7 +90,7 @@ $sql="select
 	left join it_user_teacher on it_course.teacher_id=it_user_teacher.id
 	";
 $sql.=" where it_course.title like '%$keyword%' and it_course.genre='0' and it_course.isShow='1'";
-if(!empty($cid)) $sql.=" and cateid='$cid'";
+if(!empty($parentid)) $sql.=" and cateid in($nextid)";
 
 $sql.="order by it_course.id desc";
 $result=mysql_query($sql); 
@@ -193,5 +182,10 @@ while($row=mysql_fetch_array($rs)){
     <div id="page"><?php echo $key?></div>
 </section>
 <?php include_once('inc/footer_1.php')?>
+<script>
+$(function(){
+	$('#count').html('<b>相关课程共<?php echo $count?>门</b>')
+	})
+</script>
 </body>
 </html>

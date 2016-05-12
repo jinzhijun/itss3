@@ -1,7 +1,7 @@
 #images
-#/images/
+/images/
 #inc
-#/inc/
-#/admin/inc/
+/inc/
+/admin/inc/
 #Runtime
-#/Runtime/
+/Runtime/

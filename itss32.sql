@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50520
 File Encoding         : 65001
 
-Date: 2016-04-28 11:26:37
+Date: 2016-05-11 17:45:18
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -47,7 +47,7 @@ CREATE TABLE `it_admin_menu` (
   `depth` int(11) DEFAULT '0' COMMENT '层级',
   `sort` int(11) DEFAULT '0' COMMENT '排序',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of it_admin_menu
@@ -73,6 +73,7 @@ INSERT INTO `it_admin_menu` VALUES ('18', '待退款订单', '#', '4', '0', '100
 INSERT INTO `it_admin_menu` VALUES ('19', '财务流水', '#', '5', '0', '100');
 INSERT INTO `it_admin_menu` VALUES ('20', '提现申请', '#', '5', '0', '100');
 INSERT INTO `it_admin_menu` VALUES ('21', '管理员设置', '#', '6', '0', '100');
+INSERT INTO `it_admin_menu` VALUES ('22', '友情链接', 'link.php?menu=22', '6', '0', '100');
 
 -- ----------------------------
 -- Table structure for it_artical
@@ -136,7 +137,7 @@ CREATE TABLE `it_course` (
   `genre` int(11) DEFAULT '0' COMMENT '0代表点播，1代表直播',
   `addtime` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=78 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of it_course
@@ -168,10 +169,9 @@ INSERT INTO `it_course` VALUES ('35', '8', '共享未来城市', '共享未来�
 INSERT INTO `it_course` VALUES ('36', '8', '让我们收回互联网', '让我们收回互联网', '1', '../files/day_160325/201603251425073048.png', '0.00', '让我们收回互联网', '让我们收回互联网', '0', '1', '0', '2016-03-25 14:25:09');
 INSERT INTO `it_course` VALUES ('37', '8', '用视频再造教育', '用视频再造教育', '1', '../files/day_160325/201603251425451260.png', '0.00', '用视频再造教育', '用视频再造教育', '0', '1', '0', '2016-03-25 14:25:50');
 INSERT INTO `it_course` VALUES ('38', '8', '市与企业中的奇妙数学', '市与企业中的奇妙数学', '1', '../files/day_160325/201603251426294058.png', '0.00', '市与企业中的奇妙数学', '市与企业中的奇妙数学', '0', '1', '0', '2016-03-25 14:26:30');
-INSERT INTO `it_course` VALUES ('39', '18', 'test', '1', '1', '../files/day_160330/201603301534105473.jpg', '0.01', 'test', 'test', '0', '1', '0', '2016-03-30 15:34:24');
-INSERT INTO `it_course` VALUES ('40', '18', '1111111', '', '1', '../files/day_160412/201604120954546638.jpg', '1.00', '1', '1', '0', '1', '0', '2016-04-12 09:54:58');
-INSERT INTO `it_course` VALUES ('41', '18', '直播测试', '1111', '1', '../files/day_160412/201604120955319077.jpg', '0.01', '1', '1', '0', '1', '1', '2016-04-12 09:55:41');
-INSERT INTO `it_course` VALUES ('42', '11', '直播课堂免费测试', 'test', '1', '../files/day_160412/201604121645105790.jpg', '0.00', '适合企业管理者', '测试数据', '0', '1', '1', '2016-04-12 16:45:28');
+INSERT INTO `it_course` VALUES ('75', '46', 'PowerPoint', '课程简述', '1', '../files/day_160510/201605101425013367.jpg', '0.00', '学生', '哇额达到', '0', '1', '1', '2016-05-10 14:25:23');
+INSERT INTO `it_course` VALUES ('76', '47', '999', '999', '1', '../files/day_160510/201605101538025326.jpg', '0.00', '999', '99', '0', '1', '1', '2016-05-10 15:38:07');
+INSERT INTO `it_course` VALUES ('77', '13', '测试课程', '111', '1', '../files/day_160511/201605111304557396.jpg', '0.00', '11', '课程描述', '0', '1', '1', '2016-05-11 13:05:08');
 
 -- ----------------------------
 -- Table structure for it_course_category
@@ -183,30 +183,63 @@ CREATE TABLE `it_course_category` (
   `parentid` int(11) DEFAULT '0' COMMENT '父分类id',
   `depth` int(11) DEFAULT '0' COMMENT '层次',
   `sort` int(11) DEFAULT '0' COMMENT '排序',
+  `pid` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of it_course_category
 -- ----------------------------
-INSERT INTO `it_course_category` VALUES ('1', 'ITSS', '0', '0', '0');
-INSERT INTO `it_course_category` VALUES ('2', '标准类', '1', '1', '0');
-INSERT INTO `it_course_category` VALUES ('3', '信用类', '1', '1', '0');
-INSERT INTO `it_course_category` VALUES ('4', '两化融合', '1', '1', '0');
-INSERT INTO `it_course_category` VALUES ('5', '管理类', '1', '1', '0');
-INSERT INTO `it_course_category` VALUES ('6', '技术类', '1', '1', '0');
-INSERT INTO `it_course_category` VALUES ('7', '应用类', '1', '1', '0');
-INSERT INTO `it_course_category` VALUES ('8', '其他', '1', '1', '0');
-INSERT INTO `it_course_category` VALUES ('9', 'ITSS系列', '0', '0', '0');
-INSERT INTO `it_course_category` VALUES ('10', 'IT服务工程师', '9', '1', '0');
-INSERT INTO `it_course_category` VALUES ('11', 'IT服务项目经理', '9', '1', '0');
-INSERT INTO `it_course_category` VALUES ('12', 'ITIL系列', '0', '0', '0');
-INSERT INTO `it_course_category` VALUES ('13', 'ITIL® 2011 Foundation认证', '12', '1', '0');
-INSERT INTO `it_course_category` VALUES ('14', '服务提供与协议（SOA）', '12', '1', '0');
-INSERT INTO `it_course_category` VALUES ('15', '发布、控制与验证(RCV)', '12', '1', '0');
-INSERT INTO `it_course_category` VALUES ('16', '运营支持与分析（OSA）', '12', '1', '0');
-INSERT INTO `it_course_category` VALUES ('17', '计划、保护与优化（PPO）', '12', '1', '0');
-INSERT INTO `it_course_category` VALUES ('18', '跨生命周期顶点课程（MALC）', '12', '1', '0');
+INSERT INTO `it_course_category` VALUES ('1', 'ITSS/ITIL', '0', '0', '0', '1,6,7,8,9,10,11,12,13');
+INSERT INTO `it_course_category` VALUES ('2', '移动/前端', '0', '0', '0', '2,14,15,16,17,18,19,20,21');
+INSERT INTO `it_course_category` VALUES ('3', '后端/测试', '0', '0', '0', '3,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37');
+INSERT INTO `it_course_category` VALUES ('4', '网络/运维', '0', '0', '0', '4,38,39,40,41');
+INSERT INTO `it_course_category` VALUES ('5', '设计/办公', '0', '0', '0', '5,42,43,44,45,46,47');
+INSERT INTO `it_course_category` VALUES ('6', 'ITSS', '1', '1', '0', '6,7,8,');
+INSERT INTO `it_course_category` VALUES ('7', 'IT服务项目经理', '6', '2', '0', '7');
+INSERT INTO `it_course_category` VALUES ('8', 'IT服务工程师', '6', '2', '0', '8');
+INSERT INTO `it_course_category` VALUES ('9', '信用管理', '1', '1', '0', '9,10');
+INSERT INTO `it_course_category` VALUES ('10', '信用管理师', '9', '2', '0', '10');
+INSERT INTO `it_course_category` VALUES ('11', 'ITIL', '1', '1', '0', '11,13,12');
+INSERT INTO `it_course_category` VALUES ('12', 'ITIL2011', '11', '2', '0', '12');
+INSERT INTO `it_course_category` VALUES ('13', 'Foundation', '11', '2', '0', '13');
+INSERT INTO `it_course_category` VALUES ('14', '移动开发', '2', '1', '0', '14,15,16');
+INSERT INTO `it_course_category` VALUES ('15', 'Android', '14', '2', '0', '15');
+INSERT INTO `it_course_category` VALUES ('16', 'ios', '14', '2', '0', '16');
+INSERT INTO `it_course_category` VALUES ('17', '前端开发', '2', '1', '0', '17,18,19');
+INSERT INTO `it_course_category` VALUES ('18', 'HTML5&CSS3', '17', '2', '0', '18');
+INSERT INTO `it_course_category` VALUES ('19', 'JavaScript', '17', '2', '0', '19');
+INSERT INTO `it_course_category` VALUES ('20', '游戏开发', '2', '1', '0', '20,21');
+INSERT INTO `it_course_category` VALUES ('21', 'Cocos2D', '20', '2', '0', '21');
+INSERT INTO `it_course_category` VALUES ('22', '后端开发', '3', '1', '0', '22,23,24,25,26,27,');
+INSERT INTO `it_course_category` VALUES ('23', 'JAVA', '22', '2', '0', '23');
+INSERT INTO `it_course_category` VALUES ('24', 'C/C++', '22', '2', '0', '24');
+INSERT INTO `it_course_category` VALUES ('25', 'PHP', '22', '2', '0', '25');
+INSERT INTO `it_course_category` VALUES ('26', 'Lua', '22', '2', '0', '26');
+INSERT INTO `it_course_category` VALUES ('27', '数据库', '22', '2', '0', '27');
+INSERT INTO `it_course_category` VALUES ('28', '软件测试', '3', '1', '0', '28,29,30');
+INSERT INTO `it_course_category` VALUES ('29', '软件测试基础', '28', '2', '0', '29');
+INSERT INTO `it_course_category` VALUES ('30', '测试实操', '28', '2', '0', '30');
+INSERT INTO `it_course_category` VALUES ('31', '大数据', '3', '1', '0', '31,32,33,34,35');
+INSERT INTO `it_course_category` VALUES ('32', 'Docker', '32', '2', '0', '32');
+INSERT INTO `it_course_category` VALUES ('33', 'Hadoop', '32', '2', '0', '33');
+INSERT INTO `it_course_category` VALUES ('34', 'Spark', '32', '2', '0', '34');
+INSERT INTO `it_course_category` VALUES ('35', 'Scala', '32', '2', '0', '35');
+INSERT INTO `it_course_category` VALUES ('36', '开发工具', '3', '1', '0', '36,37');
+INSERT INTO `it_course_category` VALUES ('37', 'SVN', '36', '2', '0', '37');
+INSERT INTO `it_course_category` VALUES ('38', '红帽', '4', '1', '0', '38');
+INSERT INTO `it_course_category` VALUES ('39', 'Linux', '4', '1', '0', '39');
+INSERT INTO `it_course_category` VALUES ('40', '思科', '4', '1', '0', '40');
+INSERT INTO `it_course_category` VALUES ('41', '华为', '4', '1', '0', '41');
+INSERT INTO `it_course_category` VALUES ('42', '设计', '5', '1', '0', '42,43,44');
+INSERT INTO `it_course_category` VALUES ('43', 'UI设计', '42', '2', '0', '43');
+INSERT INTO `it_course_category` VALUES ('44', 'CG设计', '42', '2', '0', '44');
+INSERT INTO `it_course_category` VALUES ('45', '办公', '5', '1', '0', '45,46,47');
+INSERT INTO `it_course_category` VALUES ('46', 'PowerPoint', '45', '2', '0', '46');
+INSERT INTO `it_course_category` VALUES ('47', 'Excel', '45', '2', '0', '47');
+INSERT INTO `it_course_category` VALUES ('48', '电商/营销', '0', '0', '0', '48,49,50');
+INSERT INTO `it_course_category` VALUES ('49', '网络营销', '48', '1', '0', '49');
+INSERT INTO `it_course_category` VALUES ('50', '跨境电商营销', '48', '1', '0', '50');
 
 -- ----------------------------
 -- Table structure for it_course_video
@@ -225,9 +258,9 @@ CREATE TABLE `it_course_video` (
 -- ----------------------------
 -- Records of it_course_video
 -- ----------------------------
-INSERT INTO `it_course_video` VALUES ('1', '13', '章节1：和阿文一起学信息图表', '', '1', '2016-03-18 11:25:41');
-INSERT INTO `it_course_video` VALUES ('2', '13', '课时1：课程学习说明', 'http://player.polyv.net/videos/f8a2242b3cc7c5cfa8118bc3c7ed705f_f.swf', '2', '2016-03-18 11:33:31');
-INSERT INTO `it_course_video` VALUES ('3', '13', '课时2：阿文试睡第一夜', 'http://player.polyv.net/videos/f8a2242b3cc7c5cfa8118bc3c7ed705f_f.swf', '3', '2016-03-18 11:38:08');
+INSERT INTO `it_course_video` VALUES ('1', '38', '章节1：和阿文一起学信息图表', '', '1', '2016-03-18 11:25:41');
+INSERT INTO `it_course_video` VALUES ('2', '38', '课时1：课程学习说明', 'http://player.polyv.net/videos/f8a2242b3cc7c5cfa8118bc3c7ed705f_f.swf', '2', '2016-03-18 11:33:31');
+INSERT INTO `it_course_video` VALUES ('3', '38', '课时2：阿文试睡第一夜', 'http://player.polyv.net/videos/f8a2242b3cc7c5cfa8118bc3c7ed705f_f.swf', '3', '2016-03-18 11:38:08');
 INSERT INTO `it_course_video` VALUES ('4', '12', '章节1：和阿文一起学信息图表', '', '1', '2016-03-18 16:14:48');
 INSERT INTO `it_course_video` VALUES ('5', '12', '课时1：课程学习说明', 'http://player.polyv.net/videos/f8a2242b3cc7c5cfa8118bc3c7ed705f_f.swf', '2', '2016-03-18 16:14:58');
 INSERT INTO `it_course_video` VALUES ('6', '12', '课时2：阿文试睡第一夜', 'http://player.polyv.net/videos/f8a2242b3cc7c5cfa8118bc3c7ed705f_f.swf', '3', '2016-03-18 16:15:04');
@@ -246,14 +279,49 @@ CREATE TABLE `it_course_video_time` (
   `courserid` int(11) DEFAULT NULL,
   `b_time` datetime DEFAULT NULL,
   `e_time` datetime DEFAULT NULL,
+  `assistantToken` int(11) DEFAULT NULL,
+  `webid` varchar(32) DEFAULT NULL,
+  `webnum` int(12) DEFAULT NULL,
+  `studentToken` varchar(12) DEFAULT NULL,
+  `studentUrl` varchar(255) DEFAULT NULL,
+  `teacherToken` varchar(12) DEFAULT NULL,
+  `teacherUrl` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of it_course_video_time
 -- ----------------------------
-INSERT INTO `it_course_video_time` VALUES ('1', '41', '2016-04-15 09:00:00', '2016-04-15 09:45:00');
-INSERT INTO `it_course_video_time` VALUES ('2', '42', '2016-04-15 09:00:00', '2016-04-15 09:45:00');
+INSERT INTO `it_course_video_time` VALUES ('19', '75', '2016-05-10 14:25:40', '2016-05-10 18:25:44', '923568', 'wITcydbuxp', '18477268', '514042', 'http://itss3.gensee.com/training/site/s/18477268', '923568', 'http://itss3.gensee.com/training/site/r/18477268');
+INSERT INTO `it_course_video_time` VALUES ('20', '76', '2016-05-10 15:38:17', '2016-05-11 18:38:20', '93459', 'ip4UQuj34y', '51445249', '835490', 'http://itss3.gensee.com/training/site/s/51445249', '093459', 'http://itss3.gensee.com/training/site/r/51445249');
+INSERT INTO `it_course_video_time` VALUES ('21', '77', '2016-05-14 12:00:00', '2016-05-14 13:00:00', '716947', 'bFyGsSoQ7B', '4319892', '501210', 'http://itss3.gensee.com/training/site/s/04319892', '716947', 'http://itss3.gensee.com/training/site/r/04319892');
+
+-- ----------------------------
+-- Table structure for it_link
+-- ----------------------------
+DROP TABLE IF EXISTS `it_link`;
+CREATE TABLE `it_link` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) DEFAULT NULL,
+  `logo` varchar(255) DEFAULT NULL,
+  `link` varchar(255) DEFAULT NULL,
+  `num` tinyint(4) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of it_link
+-- ----------------------------
+INSERT INTO `it_link` VALUES ('1', '中国政府网', 'linklogo/1.png', 'http://www.gov.cn/', null);
+INSERT INTO `it_link` VALUES ('2', 'title', '../files/day_160503/201605031005296403.jpg', 'http://www.miit.gov.cn/', '2');
+INSERT INTO `it_link` VALUES ('3', 'title', '../files/day_160503/201605031006086208.png', 'http://www.itss.cn/', '2');
+INSERT INTO `it_link` VALUES ('4', null, 'linklogo/4.jpg', 'http://www.itss-training.cn/', null);
+INSERT INTO `it_link` VALUES ('5', null, 'linklogo/5.png', 'http://www.cspiii.com/', null);
+INSERT INTO `it_link` VALUES ('6', null, 'linklogo/6.jpg', 'http://www.jseic.gov.cn/', null);
+INSERT INTO `it_link` VALUES ('7', null, 'linklogo/7.png', 'http://www.wuxi.gov.cn/', null);
+INSERT INTO `it_link` VALUES ('8', null, 'linklogo/8.jpg', 'http://etc.wuxi.gov.cn/', null);
+INSERT INTO `it_link` VALUES ('9', null, 'linklogo/9.png', 'http://xdj.wuxi.gov.cn/', null);
+INSERT INTO `it_link` VALUES ('10', null, 'linklogo/10.png', 'http://www.wxkjj.gov.cn/', null);
 
 -- ----------------------------
 -- Table structure for it_order
@@ -267,7 +335,7 @@ CREATE TABLE `it_order` (
   `price` decimal(10,2) DEFAULT NULL,
   `addtime` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of it_order
@@ -277,6 +345,7 @@ INSERT INTO `it_order` VALUES ('17', '1', '2016040110057995', '0', '0.01', '2016
 INSERT INTO `it_order` VALUES ('18', '1', '2016040152491019', '0', '0.01', '2016-04-01 13:38:44');
 INSERT INTO `it_order` VALUES ('19', '1', '2016040610254549', '0', '0.01', '2016-04-06 09:31:11');
 INSERT INTO `it_order` VALUES ('20', '2', '2016041254995197', '0', '0.01', '2016-04-12 16:53:26');
+INSERT INTO `it_order` VALUES ('21', '1', '2016051151529852', '0', '50.00', '2016-05-11 10:27:31');
 
 -- ----------------------------
 -- Table structure for it_order_item
@@ -292,7 +361,7 @@ CREATE TABLE `it_order_item` (
   `price` decimal(10,2) DEFAULT NULL,
   `addtime` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of it_order_item
@@ -302,6 +371,7 @@ INSERT INTO `it_order_item` VALUES ('20', '2016040110057995', '0', '39', '1', 't
 INSERT INTO `it_order_item` VALUES ('21', '2016040152491019', '0', '39', '1', 'test', '0.01', '2016-04-01 13:38:44');
 INSERT INTO `it_order_item` VALUES ('22', '2016040610254549', '0', '39', '1', 'test', '0.01', '2016-04-06 09:31:11');
 INSERT INTO `it_order_item` VALUES ('23', '2016041254995197', '0', '41', '1', '直播测试', '0.01', '2016-04-12 16:53:26');
+INSERT INTO `it_order_item` VALUES ('24', '2016051151529852', '0', '14', '1', '和方骥一起学Excel（图文+视频）', '50.00', '2016-05-11 10:27:31');
 
 -- ----------------------------
 -- Table structure for it_order_pay_log
@@ -338,7 +408,7 @@ CREATE TABLE `it_user` (
   `classify` int(11) DEFAULT '0' COMMENT '用户分类：0代表学员，1代表讲师',
   `addtime` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of it_user
@@ -347,6 +417,7 @@ INSERT INTO `it_user` VALUES ('1', '13912382812', 'bf9f8d1f05dc08cc3b02e8fcf2c2b
 INSERT INTO `it_user` VALUES ('2', '13912382811', 'e10adc3949ba59abbe56e057f20f883e', null, null, null, null, null, null, '0', '2016-04-12 08:43:45');
 INSERT INTO `it_user` VALUES ('3', '13584877656', '73930c2027351109a5ed3ed0f15a16dd', null, null, null, null, null, null, '0', '2016-04-15 15:04:55');
 INSERT INTO `it_user` VALUES ('4', '', 'd41d8cd98f00b204e9800998ecf8427e', null, null, null, null, null, null, '0', '2016-04-16 08:51:29');
+INSERT INTO `it_user` VALUES ('5', '18862757669', 'e10adc3949ba59abbe56e057f20f883e', null, null, null, null, null, null, '0', '2016-05-09 10:38:33');
 
 -- ----------------------------
 -- Table structure for it_user_alipay
@@ -466,14 +537,18 @@ CREATE TABLE `it_user_teacher` (
   `name` varchar(255) DEFAULT NULL COMMENT '讲师姓名',
   `headimg` varchar(255) DEFAULT NULL,
   `introduction` text COMMENT '讲师介绍',
+  `phone` varchar(255) DEFAULT NULL,
+  `qq` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
   `addtime` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uid` (`uid`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of it_user_teacher
 -- ----------------------------
-INSERT INTO `it_user_teacher` VALUES ('1', '1', 'ITSS实训基地', 'images/head.jpg', '国家信息技术服务标准（ITSS）全权成员单位和全国授权培训机构，是工信部授权国家两化融合管理体系服务机构，是江苏省信用服务机构。同时又是美国SEI授权CMMI服务机构和英国APMG授权ITIL的培训机构。', '2016-03-17 14:12:15');
+INSERT INTO `it_user_teacher` VALUES ('1', '1', 'ITSS实训基地', '../files/day_160511/201605111740051446.jpg', '国家信息技术服务标准（ITSS）全权成员单位和全国授权培训机构，是工信部授权国家两化融合管理体系服务机构，是江苏省信用服务机构。同时又是美国SEI授权CMMI服务机构和英国APMG授权ITIL的培训机构。', '123', '111', '111@11.com', '2016-03-17 14:12:15');
 
 -- ----------------------------
 -- Table structure for it_zvideo_list
