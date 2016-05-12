@@ -52,6 +52,7 @@ $(function(){
 		var price=$('#price').val();
 		var service=$('#service').val();
 		var content=$('#content').val();
+		var teacher_id=$('#teacher_id').val();
 		
 		if(cateid==0){
 			alert('请选择课程分类'); return false;
@@ -68,7 +69,7 @@ $(function(){
 		
 		$.ajax({
 			url:"json/zVedio_add.php",
-			data:{cateid:cateid, title:title, img:img, description:description, price:price, service:service, content:content},
+			data:{cateid:cateid,teacher_id:teacher_id,title:title, img:img, description:description, price:price, service:service, content:content},
 			dataType:"html",
 			type:"post",
 			success: function(e){
@@ -134,7 +135,7 @@ include_once("../inc/new_header.php");
     </tr>
   <tr>
     <td>课程标题：</td>
-    <td><input type="text" id="title"></td>
+    <td><input type="text" id="title"><input type="hidden" id="teacher_id" name="teacher_id" value="<?php echo $userid;?>"></input></td>
   </tr>
   <tr>
     <td>封面图片：</td>
