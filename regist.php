@@ -6,6 +6,12 @@
 <script src="http://www.itss3.cn/itss/JS/jquery.min.js" type="text/javascript"></script>
 <script type="text/javascript">
 $(function(){
+	$('.lrFrm').keyup(function(e){
+		if(e.keyCode==13){
+			$('#loginBut').click();
+			}
+		})
+		
 		$('#getCode').click(function(){//发送手机验证码
 			var username=$('#username').val();
 			var myreg = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/; 
@@ -98,7 +104,7 @@ include_once("inc/new_header.php");
       <input type="text" id="code"><input type="button" id="getCode" value="获取短信验证码"></td>
     </tr>
     <tr>
-      <td>密码：<br><input type="text" id="password"></td>
+      <td>密码：<br><input type="password" id="password"></td>
     </tr>
     <tr>
       <td><button>注册</button></td>

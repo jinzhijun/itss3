@@ -35,7 +35,7 @@ header,#header{height:100px; position:relative;}
 #header #tool-box #login{ border-right:#999 solid 1px;}
 
 #user-box{position:absolute; top:10px; right:0;}
-#user-box font{display:block; color:#999; height:35px; width:50px; float:left; font:16px/39px '微软雅黑'; margin-right:5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+#user-box font{display:block; color:#999; height:35px; width:60px; float:left; font:12px/15px '微软雅黑'; margin-right:5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; padding-top:5px;}
 #user-box span{display:block; width:35px; height:35px; border:#f1f1f1 solid 2px; border-radius:100px; overflow:hidden;  float:left;}
 #user-box span img{width:100%; height:100%;}
 
@@ -208,7 +208,30 @@ $(function() {
 		},function(){
 			$(this).find('ul').hide();
 			});
+	//安全退出
+	$('#user-box font').click(function(){
+		window.location.href='exit.php';
+		});
+	var classify='<?php echo $classify?>';
+	$('#user-box img').click(function(){
+		if(classify=='0'){
+			window.location.href='/user/';
+			}else{
+				window.location.href='/teacher/';
+				}
+		
+		});
 });
+</script>
+<script type="text/javascript">
+$(function(){
+  $('#search_but').click(function(){
+    var q=$('#q').val();
+        window.location.href="/CourseList.php?cateid=0&pid=0&keyword="+q;
+
+    });
+  
+  });
 </script>
 </head>
 
@@ -235,9 +258,9 @@ $(function() {
         <?php
 		}else{
 		?>
-        <a href="#" id="user-box" title="进入个人中心">
-        	<font><?php echo $username?></font>
-            <span><img src="../images/headimgurl.jpg"></span>
+        <a href="javascript:;" id="user-box">
+        	<font><?php echo $username?><br>安全退出</font>
+            <span title="进入个人中心"><img src="../images/headimgurl.jpg"></span>
         </a>
         <?php
 		}
@@ -251,51 +274,51 @@ $(function() {
         	<h1>全部课程</h1>
             <ul>
             	<li>
-                <h2><a href="#">ITSS·ITIL</a></h2>
-                <p><a href="#">IT服务项目经理</a><a href="#">ITIL2011</a></p>
+                <h2><a href="/CourseList.php?cateid=1&pid=0">ITSS·ITIL</a></h2>
+                <p><a href="/CourseList.php?cateid=7&pid=6">IT服务项目经理</a><a href="/CourseList.php?cateid=12&pid=11">ITIL2011</a></p>
                 <div id="right_cate">
-                	<dd><h3><a href="#">ITSS</a></h3><a href="#">IT服务项目经理</a><a href="#">IT服务工程师</a></dd>
-                	<dd><h3><a href="#">信用管理</a></h3><a href="#">信用管理师</a></dd>
-                	<dd><h3><a href="#">ITIL</a></h3><a href="#">ITIL2011</a><a href="#">Foundation</a></dd>
+                	<dd><h3><a href="/CourseList.php?cateid=6&pid=1">ITSS</a></h3><a href="/CourseList.php?cateid=7&pid=6">IT服务项目经理</a><a href="/CourseList.php?cateid=8&pid=6">IT服务工程师</a></dd>
+                	<dd><h3><a href="CourseList.php?cateid=9&pid=1">信用管理</a></h3><a href="CourseList.php?cateid=10&pid=9">信用管理师</a></dd>
+                	<dd><h3><a href="CourseList.php?cateid=11&pid=1">ITIL</a></h3><a href="/CourseList.php?cateid=12&pid=11">ITIL2011</a><a href="/CourseList.php?cateid=13&pid=11">Foundation</a></dd>
                 </div>
                 </li>
             	<li>
-                <h2><a href="#">移动·前端</a></h2>
-                <p><a href="#">Android</a><a href="#">iOS</a><a href="#">JavaScript</a></p>
+                <h2><a href="/CourseList.php?cateid=2&pid=0">移动·前端</a></h2>
+                <p><a href="/CourseList.php?cateid=15&pid=14">Android</a><a href="/CourseList.php?cateid=16&pid=14">iOS</a><a href="/CourseList.php?cateid=19&pid=17">JavaScript</a></p>
                 <div id="right_cate">
-                	<dd><h3><a href="#">移动开发</a></h3><a href="#">Android</a><a href="#">iOS</a></dd>
-                	<dd><h3><a href="#">前端开发</a></h3><a href="#">HTML5/CSS3</a><a href="#">JavaScript</a></dd>
-                	<dd><h3><a href="#">游戏开发</a></h3><a href="#">Cocos2D</a></dd>
+                	<dd><h3><a href="/CourseList.php?cateid=14&pid=2">移动开发</a></h3><a href="/CourseList.php?cateid=15&pid=14">Android</a><a href="/CourseList.php?cateid=16&pid=14">iOS</a></dd>
+                	<dd><h3><a href="/CourseList.php?cateid=17&pid=2">前端开发</a></h3><a href="/CourseList.php?cateid=18&pid=17">HTML5/CSS3</a><a href="/CourseList.php?cateid=19&pid=17">JavaScript</a></dd>
+                	<dd><h3><a href="/CourseList.php?cateid=20&pid=2">游戏开发</a></h3><a href="/CourseList.php?cateid=21&pid=20">Cocos2D</a></dd>
                 </div>
                 </li>
             	<li>
-                <h2><a href="#">后端·测试</a></h2>
-                <p><a href="#">JAVA</a><a href="#">PHP</a><a href="#">测试实操</a><a href="#">Lua</a></p>
+                <h2><a href="/CourseList.php?cateid=3&pid=0">后端·测试</a></h2>
+                <p><a href="/CourseList.php?cateid=23&pid=22">JAVA</a><a href="/CourseList.php?cateid=25&pid=22">PHP</a><a href="/CourseList.php?cateid=30&pid=28">测试实操</a><a href="/CourseList.php?cateid=26&pid=22">Lua</a></p>
                 <div id="right_cate">
-                	<dd><h3><a href="#">后端开发</a></h3><a href="#">JAVA</a><a href="#">C/C++</a><a href="#">数据库</a><a href="#">PHP</a><a href="#">Lua</a></dd>
-                	<dd><h3><a href="#">软件测试</a></h3><a href="#">软件测试基础</a><a href="#">测试实操</a></dd>
-                	<dd><h3><a href="#">大数据</a></h3><a href="#">Docker</a><a href="#">Hadoop</a><a href="#">Spark</a><a href="#">Scala</a></dd>
-                	<dd><h3><a href="#">开发工具</a></h3><a href="#">SVN</a></dd>
+                	<dd><h3><a href="CourseList.php?cateid=22&pid=3">后端开发</a></h3><a href="/CourseList.php?cateid=23&pid=22">JAVA</a><a href="/CourseList.php?cateid=24&pid=22">C/C++</a><a href="/CourseList.php?cateid=27&pid=22">数据库</a><a href="/CourseList.php?cateid=25&pid=22">PHP</a><a href="/CourseList.php?cateid=26&pid=22">Lua</a></dd>
+                	<dd><h3><a href="/CourseList.php?cateid=28&pid=3">软件测试</a></h3><a href="CourseList.php?cateid=29&pid=28">软件测试基础</a><a href="/CourseList.php?cateid=30&pid=28">测试实操</a></dd>
+                	<dd><h3><a href="CourseList.php?cateid=31&pid=3">大数据</a></h3><a href="/CourseList.php?cateid=32&pid=31">Docker</a><a href="/CourseList.php?cateid=33&pid=31">Hadoop</a><a href="/CourseList.php?cateid=34&pid=31">Spark</a><a href="/CourseList.php?cateid=35&pid=31">Scala</a></dd>
+                	<dd><h3><a href="/CourseList.php?cateid=36&pid=3">开发工具</a></h3><a href="/CourseList.php?cateid=37&pid=36">SVN</a></dd>
                 </div>
                 </li>
             	<li>
-                <h2><a href="#">网络·运维</a></h2>
-                <p><a href="#">Linux</a><a href="#">思科</a><a href="#">华为</a></p>
+                <h2><a href="/CourseList.php?cateid=4&pid=0">网络·运维</a></h2>
+                <p><a href="/CourseList.php?cateid=39&pid=4">Linux</a><a href="/CourseList.php?cateid=40&pid=4">思科</a><a href="/CourseList.php?cateid=41&pid=4">华为</a></p>
                 <div id="right_cate">
-                	<dd><a href="#">红帽</a><a href="#">Linux</a><a href="#">思科</a><a href="#">华为</a></dd>
+                	<dd><a href="/CourseList.php?cateid=38&pid=4">红帽</a><a href="/CourseList.php?cateid=39&pid=4">Linux</a><a href="/CourseList.php?cateid=40&pid=4">思科</a><a href="/CourseList.php?cateid=41&pid=4">华为</a></dd>
                 </div>
                 </li>
             	<li>
-                <h2><a href="#">设计·办公</a></h2>
-                <p><a href="#">设计</a><a href="#">UI设计</a><a href="#">CG设计</a></p>
+                <h2><a href="/CourseList.php?cateid=5&pid=0">设计·办公</a></h2>
+                <p><a href="/CourseList.php?cateid=42&pid=5">设计</a><a href="/CourseList.php?cateid=43&pid=42">UI设计</a><a href="/CourseList.php?cateid=44&pid=42">CG设计</a></p>
                 <div id="right_cate">
-                	<dd><h3><a href="#">设计</a></h3><a href="#">UI设计</a><a href="#">CG设计</a></dd>
-                	<dd><h3><a href="#">办公</a></h3><a href="#">PowerPoint</a><a href="#">Excel</a></dd>
+                	<dd><h3><a href="/CourseList.php?cateid=42&pid=5">设计</a></h3><a href="/CourseList.php?cateid=43&pid=42">UI设计</a><a href="/CourseList.php?cateid=44&pid=42">CG设计</a></dd>
+                	<dd><h3><a href="/CourseList.php?cateid=45&pid=5">办公</a></h3><a href="/CourseList.php?cateid=46&pid=45">PowerPoint</a><a href="/CourseList.php?cateid=47&pid=45">Excel</a></dd>
                 </div>
                 </li>
             	<li>
-                <h2><a href="#">电商·营销</a></h2>
-                <p><a href="#">网络营销</a><a href="#">跨境电商</a></p>
+                <h2><a href="/CourseList.php?cateid=48&pid=0">电商·营销</a></h2>
+                <p><a href="/CourseList.php?cateid=49&pid=48">网络营销</a><a href="/CourseList.php?cateid=50&pid=48">跨境电商</a></p>
                 </li>
             </ul>
         </div>

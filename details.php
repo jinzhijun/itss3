@@ -101,6 +101,20 @@ $(function(){
 				}
 		});
 	if(genre=='0'){$('#ML').show()}
+	
+	//安全退出
+	$('#user-box font').click(function(){
+		window.location.href='/exit.php';
+		});
+	var classify='<?php echo $classify?>';
+	$('#user-box img').click(function(){
+		if(classify=='0'){
+			window.location.href='/user/';
+			}else{
+				window.location.href='/teacher/';
+				}
+		
+		});
 	});
 </script>
 <link href="css/style0509.css" rel="stylesheet" type="text/css">
@@ -123,7 +137,7 @@ body{background:#f2f2f2;}
 	<div class="course_title" style="width:950px; margin:0 auto; position:relative;">
     	<h1><?php echo $title?></h1>
         <a href="#" id="user-box">
-        <font style="color:#fff;"><?php echo $username?></font>
+        <font style="color:#fff;"><?php echo $username?><br>安全退出</font>
         <span><img src="images/headimgurl.jpg"></span>
         </a>
     </div>

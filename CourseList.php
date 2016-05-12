@@ -44,7 +44,7 @@ include_once("inc/new_header.php");
 ?>
 <section class="wrap" id="dh">
 <span><b>您在这里：</b></span>
-<span><i>></i><a href="zCourseList.php">全部课程</a></span>
+<span><i>></i><a href="CourseList.php">全部课程</a></span>
 <span><?php category($parentid);?></span>
 <span id="count"><b>（相关课程共0门）</b></span>
 </section>
