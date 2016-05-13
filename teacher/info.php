@@ -34,6 +34,7 @@ $(function(){
     var description=$('#description').val();
     var qq=$('#qq').val();
     var email=$('#email').val();
+    var userid=<?php echo $userid; ?>;
     
     if(name==""){
       alert('姓名不能为空'); return false;
@@ -44,7 +45,7 @@ $(function(){
     
     $.ajax({
       url:"json/info.php",
-      data:{action:"save",name:name, phone:phone, img:img, description:description, qq:qq, email:email},
+      data:{action:"save",userid:userid,name:name, phone:phone, img:img, description:description, qq:qq, email:email},
       dataType:"html",
       type:"post",
       success: function(e){

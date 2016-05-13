@@ -13,5 +13,4 @@ $genre=1;
 
 $rs=$db->query("insert into it_course(teacher_id, cateid, title, img, description, price, service, content, genre, addtime)values('$teacher_id' ,'$cateid', '$title', '$img', '$description', '$price', '$service', '$content', '$genre', NOW())");
 
-
 ?>

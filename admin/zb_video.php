@@ -100,10 +100,12 @@ $sql="select
 	case it_course.isShow when '0' then '离线' else '在线' end, 
 	it_course.addtime,(select count(*) from it_course_video where course_id=it_course.id and url!='') as num,
 	it_course_video_time.b_time,
-	it_course_video_time.e_time
+	it_course_video_time.e_time,
+	it_user.username
 	
 	  from it_course
-	  left join it_user_teacher on it_course.teacher_id=it_user_teacher.id
+	  left join it_user on it_user.id=it_course.teacher_id
+	  left join it_user_teacher on it_course.teacher_id=it_user_teacher.uid
 	  left join it_course_video_time on it_course_video_time.courserid=it_course.id
 	  where it_course.title like '%$keyword%' and it_course.genre='1'
 	  order by it_course.id desc";
@@ -132,7 +134,7 @@ while($row=mysql_fetch_array($rs)){
     <td><?php echo $row[1]?></td>
     <td align="center"><?php echo $row[6]?>课时</td>
     <td align="center">&yen; <?php echo $row[2]?></td>
-    <td align="center"><?php echo $row[3]?></td>
+    <td align="center"><?php echo $row[3]?>,<?php echo $row['username']?></td>
     <td align="center"><?php echo $row[4]?></td>
     <td align="center"><?php echo $row[5]?></td>
     <td align="center"><?php echo $row['b_time']?></td>

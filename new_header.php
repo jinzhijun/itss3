@@ -48,11 +48,5 @@ $(function(){
 				}
 		
 		});
-	//搜索
-	$('#q').keyup(function(e){
-		if(e.keyCode==13){
-			window.location.href="/CourseList.php?keyword="+$(this).val();
-			}
-		});
 	});
 </script>

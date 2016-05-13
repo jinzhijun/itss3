@@ -1,5 +1,11 @@
 <?php
 	include "../inc/config.php";
+	try {
+	$db_pdo = new PDO('mysql:host=localhost;dbname=itss3',"itss","itss");
+} catch (PDOException $e) {
+	echo $e->getMessage();
+	die();
+}
 	$courserid = $_POST['courseid'];
 	$b_time = $_POST['b_time'];
 	$e_time = $_POST['e_time'];

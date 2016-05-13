@@ -120,9 +120,11 @@ while($row=mysql_fetch_array($rs)){
 	$nowtime=strtotime(date("Y-m-d G:i:s"));
 	if($nowtime<strtotime($row['b_time'])){
 		$str="开课时间：".$row['b_time'];
-		}else{
-			$str="报名已结束";
-			}
+		}elseif($nowtime<strtotime($row['b_time']) || $nowtime>strtotime($row['e_time'])){
+			$str="课程直播中...";
+			}else{
+				$str="课程已结束";
+				}
 	$price=$row['price'];
 	if($price==0) $price="免费";
 ?>

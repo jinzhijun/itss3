@@ -47,14 +47,14 @@ function del(id){
 <table width="100%" border="0" cellspacing="1" cellpadding="0" id="list">
   <tr>
     <th width="100">照片</th>
-    <th>&nbsp;</th>
+    <th>审核状态</th>
     <th>姓名</th>
     <th>简介</th>
     <th>操作</th>
   </tr>
  <?php
 $Page_size=15;
-$sql="select * from it_user_teacher where name like '%$keyword%' order by id desc";
+$sql="select it_user_teacher.id ,it_user_teacher.headimg ,it_user_teacher.name,it_user_teacher.introduction ,(case it_user.classify when '0' then '未通过' else '通过' end) as con from it_user left join it_user_teacher on it_user.id = it_user_teacher.uid where name like '%$keyword%' order by id desc";
 $result=mysql_query($sql); 
 $count = mysql_num_rows($result); 
 $page_count = ceil($count/$Page_size);
@@ -77,12 +77,12 @@ while($row=mysql_fetch_array($rs)){
 ?>
   <tr>
     <td align="center"><img src="../<?php echo $row['headimg']?>" height="50"></td>
-    <td>&nbsp;</td>
+    <td><?php echo $row['con']?></td>
     <td><?php echo $row['name']?></td>
     <td><?php echo $row['introduction']?></td>
     <td align="center">
-    <a href="teacher_add.php?id=<?php echo $row[0]?>&menu=<?php echo $menu?>">编辑</a>
-    <a href="javascript:del(<?php echo $row[0]?>)">删除</a>
+    <a href="teacher_add.php?id=<?php echo $row['id']?>&menu=<?php echo $menu?>">编辑</a>
+    <a href="javascript:del(<?php echo $row['id']?>)">删除</a>
     </td>
   </tr>
 <?php

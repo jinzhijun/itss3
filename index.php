@@ -1,4 +1,5 @@
 <?php
+include_once("inc/config.php");
 session_start();
 $userid=$_SESSION['userid'];
 $username=$_SESSION['username'];
@@ -100,12 +101,13 @@ header,#header{height:100px; position:relative;}
 .list ul li:hover{box-shadow:1px 1px 3px #ccc;}
 .list ul li a{color:#000; text-decoration:none;}
 .list ul li a *{display:block;}
-.list ul li a font{padding:10px; font-size:16px;}
+.list ul li a font{padding:10px; font-size:16px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
 .list ul li a span{padding:0 10px; color:#999;}
 .list ul li a span *{display:inline-block; vertical-align:middle; margin-right:5px;}
 .list ul li a b{margin:10px 0 10px 10px; display:inline-block; background:#e5e5e5; color:#999; font-weight:normal; padding:2px 5px; border-radius:3px;}
 .list ul li p{padding:10px;}
 .list ul li p i{float:right; color:red; font:13px/13px '微软雅黑';}
+.list ul li.no{border:none;}
 
 /*学习计划*/
 #plan h1{font:20px/20px '微软雅黑'; text-align:center;}
@@ -349,7 +351,7 @@ $(function(){
         	<h1>我要开课</h1>
             <ul>
             	<li><a href="#">培训机构开课</a></li>
-            	<li><a href="#">个人讲师开课</a></li>
+            	<li><a href="register.php">个人讲师开课</a></li>
             </ul>
         </div>
     </div>
@@ -410,38 +412,7 @@ $(function(){
 	<div id="index_list" class="wrap list">
     	<h1>ITSS·ITIL <a href="#">更多 ></a></h1>
         <ul>
-        	<li>
-                <a href="#">
-                <img src="http://124.192.148.8/picture/course/182/1437640810423.jpg" width="100%">
-                <font>JAVA SE工程师</font>
-                <span><img src="images/user-icon.png">19228人学习 <img src="images/timer-icon.png" style="margin-left:10px;">1小时10份</span>
-                <p>更新至第5节 <i>免费</i></p>
-                </a>
-            </li> 
-        	<li>
-                <a href="#">
-                <img src="http://124.192.148.8/picture/course/252/1437379962653.jpg" width="100%">
-                <font>JAVA SE工程师</font>
-                <span><img src="images/user-icon.png">19228人学习 <img src="images/timer-icon.png" style="margin-left:10px;">1小时10份</span>
-                <p>更新至第5节 <i>免费</i></p>
-                </a>
-            </li> 
-        	<li>
-                <a href="#">
-                <img src="http://124.192.148.8/picture/course/714/1452741470871.png" width="100%">
-                <font>JAVA SE工程师</font>
-                <span><img src="images/user-icon.png">19228人学习 <img src="images/timer-icon.png" style="margin-left:10px;">1小时10份</span>
-                <p>更新至第5节 <i>免费</i></p>
-                </a>
-            </li> 
-        	<li>
-                <a href="#">
-                <img src="http://124.192.148.8/picture/course/42/1461814294044.jpg" width="100%">
-                <font>JAVA SE工程师</font>
-                <span><img src="images/user-icon.png">19228人学习 <img src="images/timer-icon.png" style="margin-left:10px;">1小时10份</span>
-                <p>更新至第5节 <i>免费</i></p>
-                </a>
-            </li> 
+        <?php index_list(1)?>
         </ul>
     </div>
 </section>
@@ -450,118 +421,17 @@ $(function(){
 	<div id="index_list" class="wrap list">
     	<h1>移动·前端 <a href="#">更多 ></a></h1>
         <ul>
-        	<li>
-                <a href="#">
-                <img src="http://124.192.148.8/picture/course/182/1437640810423.jpg" width="100%">
-                <font>JAVA SE工程师</font>
-                <span><img src="images/user-icon.png">19228人学习 <img src="images/timer-icon.png" style="margin-left:10px;">1小时10份</span>
-                <p>更新至第5节 <i>免费</i></p>
-                </a>
-            </li> 
-        	<li>
-                <a href="#">
-                <img src="http://124.192.148.8/picture/course/252/1437379962653.jpg" width="100%">
-                <font>JAVA SE工程师</font>
-                <span><img src="images/user-icon.png">19228人学习 <img src="images/timer-icon.png" style="margin-left:10px;">1小时10份</span>
-                <p>更新至第5节 <i>免费</i></p>
-                </a>
-            </li> 
-        	<li>
-                <a href="#">
-                <img src="http://124.192.148.8/picture/course/714/1452741470871.png" width="100%">
-                <font>JAVA SE工程师</font>
-                <span><img src="images/user-icon.png">19228人学习 <img src="images/timer-icon.png" style="margin-left:10px;">1小时10份</span>
-                <p>更新至第5节 <i>免费</i></p>
-                </a>
-            </li> 
-        	<li>
-                <a href="#">
-                <img src="http://124.192.148.8/picture/course/42/1461814294044.jpg" width="100%">
-                <font>JAVA SE工程师</font>
-                <span><img src="images/user-icon.png">19228人学习 <img src="images/timer-icon.png" style="margin-left:10px;">1小时10份</span>
-                <p>更新至第5节 <i>免费</i></p>
-                </a>
-            </li> 
+        <?php index_list(2)?>
         </ul>
     </div>
 </section>
 
-<section>
-	<div id="index_list" class="wrap list">
-    	<h1>ITSS·ITIL <a href="#">更多 ></a></h1>
-        <ul>
-        	<li>
-                <a href="#">
-                <img src="http://124.192.148.8/picture/course/182/1437640810423.jpg" width="100%">
-                <font>JAVA SE工程师</font>
-                <span><img src="images/user-icon.png">19228人学习 <img src="images/timer-icon.png" style="margin-left:10px;">1小时10份</span>
-                <p>更新至第5节 <i>免费</i></p>
-                </a>
-            </li> 
-        	<li>
-                <a href="#">
-                <img src="http://124.192.148.8/picture/course/252/1437379962653.jpg" width="100%">
-                <font>JAVA SE工程师</font>
-                <span><img src="images/user-icon.png">19228人学习 <img src="images/timer-icon.png" style="margin-left:10px;">1小时10份</span>
-                <p>更新至第5节 <i>免费</i></p>
-                </a>
-            </li> 
-        	<li>
-                <a href="#">
-                <img src="http://124.192.148.8/picture/course/714/1452741470871.png" width="100%">
-                <font>JAVA SE工程师</font>
-                <span><img src="images/user-icon.png">19228人学习 <img src="images/timer-icon.png" style="margin-left:10px;">1小时10份</span>
-                <p>更新至第5节 <i>免费</i></p>
-                </a>
-            </li> 
-        	<li>
-                <a href="#">
-                <img src="http://124.192.148.8/picture/course/42/1461814294044.jpg" width="100%">
-                <font>JAVA SE工程师</font>
-                <span><img src="images/user-icon.png">19228人学习 <img src="images/timer-icon.png" style="margin-left:10px;">1小时10份</span>
-                <p>更新至第5节 <i>免费</i></p>
-                </a>
-            </li> 
-        </ul>
-    </div>
-</section>
 
 <section>
 	<div id="index_list" class="wrap list">
     	<h1>后端·测试 <a href="#">更多 ></a></h1>
         <ul>
-        	<li>
-                <a href="#">
-                <img src="http://124.192.148.8/picture/course/182/1437640810423.jpg" width="100%">
-                <font>JAVA SE工程师</font>
-                <span><img src="images/user-icon.png">19228人学习 <img src="images/timer-icon.png" style="margin-left:10px;">1小时10份</span>
-                <p>更新至第5节 <i>免费</i></p>
-                </a>
-            </li> 
-        	<li>
-                <a href="#">
-                <img src="http://124.192.148.8/picture/course/252/1437379962653.jpg" width="100%">
-                <font>JAVA SE工程师</font>
-                <span><img src="images/user-icon.png">19228人学习 <img src="images/timer-icon.png" style="margin-left:10px;">1小时10份</span>
-                <p>更新至第5节 <i>免费</i></p>
-                </a>
-            </li> 
-        	<li>
-                <a href="#">
-                <img src="http://124.192.148.8/picture/course/714/1452741470871.png" width="100%">
-                <font>JAVA SE工程师</font>
-                <span><img src="images/user-icon.png">19228人学习 <img src="images/timer-icon.png" style="margin-left:10px;">1小时10份</span>
-                <p>更新至第5节 <i>免费</i></p>
-                </a>
-            </li> 
-        	<li>
-                <a href="#">
-                <img src="http://124.192.148.8/picture/course/42/1461814294044.jpg" width="100%">
-                <font>JAVA SE工程师</font>
-                <span><img src="images/user-icon.png">19228人学习 <img src="images/timer-icon.png" style="margin-left:10px;">1小时10份</span>
-                <p>更新至第5节 <i>免费</i></p>
-                </a>
-            </li> 
+        <?php index_list(3)?>
         </ul>
     </div>
 </section>
@@ -570,38 +440,7 @@ $(function(){
 	<div id="index_list" class="wrap list">
     	<h1>网络·运维 <a href="#">更多 ></a></h1>
         <ul>
-        	<li>
-                <a href="#">
-                <img src="http://124.192.148.8/picture/course/182/1437640810423.jpg" width="100%">
-                <font>JAVA SE工程师</font>
-                <span><img src="images/user-icon.png">19228人学习 <img src="images/timer-icon.png" style="margin-left:10px;">1小时10份</span>
-                <p>更新至第5节 <i>免费</i></p>
-                </a>
-            </li> 
-        	<li>
-                <a href="#">
-                <img src="http://124.192.148.8/picture/course/252/1437379962653.jpg" width="100%">
-                <font>JAVA SE工程师</font>
-                <span><img src="images/user-icon.png">19228人学习 <img src="images/timer-icon.png" style="margin-left:10px;">1小时10份</span>
-                <p>更新至第5节 <i>免费</i></p>
-                </a>
-            </li> 
-        	<li>
-                <a href="#">
-                <img src="http://124.192.148.8/picture/course/714/1452741470871.png" width="100%">
-                <font>JAVA SE工程师</font>
-                <span><img src="images/user-icon.png">19228人学习 <img src="images/timer-icon.png" style="margin-left:10px;">1小时10份</span>
-                <p>更新至第5节 <i>免费</i></p>
-                </a>
-            </li> 
-        	<li>
-                <a href="#">
-                <img src="http://124.192.148.8/picture/course/42/1461814294044.jpg" width="100%">
-                <font>JAVA SE工程师</font>
-                <span><img src="images/user-icon.png">19228人学习 <img src="images/timer-icon.png" style="margin-left:10px;">1小时10份</span>
-                <p>更新至第5节 <i>免费</i></p>
-                </a>
-            </li> 
+        <?php index_list(4)?>
         </ul>
     </div>
 </section>
@@ -611,38 +450,7 @@ $(function(){
 	<div id="index_list" class="wrap list">
     	<h1>设计·办公 <a href="#">更多 ></a></h1>
         <ul>
-        	<li>
-                <a href="#">
-                <img src="http://124.192.148.8/picture/course/182/1437640810423.jpg" width="100%">
-                <font>JAVA SE工程师</font>
-                <span><img src="images/user-icon.png">19228人学习 <img src="images/timer-icon.png" style="margin-left:10px;">1小时10份</span>
-                <p>更新至第5节 <i>免费</i></p>
-                </a>
-            </li> 
-        	<li>
-                <a href="#">
-                <img src="http://124.192.148.8/picture/course/252/1437379962653.jpg" width="100%">
-                <font>JAVA SE工程师</font>
-                <span><img src="images/user-icon.png">19228人学习 <img src="images/timer-icon.png" style="margin-left:10px;">1小时10份</span>
-                <p>更新至第5节 <i>免费</i></p>
-                </a>
-            </li> 
-        	<li>
-                <a href="#">
-                <img src="http://124.192.148.8/picture/course/714/1452741470871.png" width="100%">
-                <font>JAVA SE工程师</font>
-                <span><img src="images/user-icon.png">19228人学习 <img src="images/timer-icon.png" style="margin-left:10px;">1小时10份</span>
-                <p>更新至第5节 <i>免费</i></p>
-                </a>
-            </li> 
-        	<li>
-                <a href="#">
-                <img src="http://124.192.148.8/picture/course/42/1461814294044.jpg" width="100%">
-                <font>JAVA SE工程师</font>
-                <span><img src="images/user-icon.png">19228人学习 <img src="images/timer-icon.png" style="margin-left:10px;">1小时10份</span>
-                <p>更新至第5节 <i>免费</i></p>
-                </a>
-            </li> 
+        <?php index_list(5)?>
         </ul>
     </div>
 </section>
@@ -651,7 +459,8 @@ $(function(){
 	<div id="index_list" class="wrap list">
     	<h1>电商·营销 <a href="#">更多 ></a></h1>
         <ul>
-        	<li>
+         <?php index_list(48)?>
+<!--        	<li>
                 <a href="#">
                 <img src="http://124.192.148.8/picture/course/182/1437640810423.jpg" width="100%">
                 <font>JAVA SE工程师</font>
@@ -659,31 +468,7 @@ $(function(){
                 <p>更新至第5节 <i>免费</i></p>
                 </a>
             </li> 
-        	<li>
-                <a href="#">
-                <img src="http://124.192.148.8/picture/course/252/1437379962653.jpg" width="100%">
-                <font>JAVA SE工程师</font>
-                <span><img src="images/user-icon.png">19228人学习 <img src="images/timer-icon.png" style="margin-left:10px;">1小时10份</span>
-                <p>更新至第5节 <i>免费</i></p>
-                </a>
-            </li> 
-        	<li>
-                <a href="#">
-                <img src="http://124.192.148.8/picture/course/714/1452741470871.png" width="100%">
-                <font>JAVA SE工程师</font>
-                <span><img src="images/user-icon.png">19228人学习 <img src="images/timer-icon.png" style="margin-left:10px;">1小时10份</span>
-                <p>更新至第5节 <i>免费</i></p>
-                </a>
-            </li> 
-        	<li>
-                <a href="#">
-                <img src="http://124.192.148.8/picture/course/42/1461814294044.jpg" width="100%">
-                <font>JAVA SE工程师</font>
-                <span><img src="images/user-icon.png">19228人学习 <img src="images/timer-icon.png" style="margin-left:10px;">1小时10份</span>
-                <p>更新至第5节 <i>免费</i></p>
-                </a>
-            </li> 
-        </ul>
+-->        </ul>
     </div>
 </section>
 
@@ -691,12 +476,7 @@ $(function(){
 	<div class="wrap" id="link">
     	<h1>友情链接</h1>
         <ul>
-        	<li><a href="#">中国ITSS实训基地</a></li>
-        	<li><a href="#">中国ITSS实训基地</a></li>
-        	<li><a href="#">中国ITSS实训基地</a></li>
-        	<li><a href="#">中国ITSS实训基地</a></li>
-        	<li><a href="#">中国ITSS实训基地</a></li>
-        	<li><a href="#">中国ITSS实训基地</a></li>
+        	<?php links();?>
         </ul>
     </div>
 </section>

@@ -12,9 +12,10 @@ $qq=$_POST['qq'];
 $pass = md5($_POST['pass']);
 $username = $_POST['uid'];
 $pass_old = $_POST['pass_old'];
+$userid = $_POST['userid'];
 
 if($action=='save'){
-	$sql="insert into it_user_teacher(uid,name,headimg,introduction,phone,qq,email,addtime)values('$userid','$name','$img','$description','$phone','$qq','$email',NOW()) ON DUPLICATE KEY UPDATE  name='$name', phone='$phone',headimg='$img',introduction='$description',phone='$phone',qq='$qq',email='$email'";
+	$sql="INSERT into it_user_teacher(uid,name,headimg,introduction,phone,qq,email,addtime)values('$userid','$name','$img','$description','$phone','$qq','$email',NOW()) ON DUPLICATE KEY UPDATE  name='$name', phone='$phone',headimg='$img',introduction='$description',phone='$phone',qq='$qq',email='$email'";
 
 $rs=$db->query($sql);
 }elseif($action=='modify') {

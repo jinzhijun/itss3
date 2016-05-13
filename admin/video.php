@@ -17,6 +17,41 @@ $(function(){
 		var keyword=$('#keyword').val();
 		window.location.href='video.php?menu=<?php echo $menu?>&keyword='+keyword;
 		});
+
+		$('body #show').click(function(){
+		var cid=$(this).attr("data-id");
+			
+		$.ajax({
+			url:"json/show.php",
+			data:{action:"show",cid:cid},
+			dataType:"json",
+			type:"post",
+			success: function(e){
+				if(e.success==0){
+					alert(e.msg);
+					location.reload();
+					}
+				}
+			});
+		});
+
+		$('body #N_show').click(function(){
+		var cid=$(this).attr("data-id");
+			
+		$.ajax({
+			url:"json/show.php",
+			data:{action:"N_show",cid:cid},
+			dataType:"json",
+			type:"post",
+			success: function(e){
+				if(e.success==0){
+					alert(e.msg);
+					location.reload();
+					}
+				}
+			});
+		});
+
 	});
 </script>
 <link href="css/style.css" rel="stylesheet" type="text/css">
@@ -72,14 +107,14 @@ $rs=mysql_query($sql);
 while($row=mysql_fetch_array($rs)){
 ?>
   <tr>
-    <td align="center"><input type="checkbox" value="<?php echo $row[0]?>"></td>
+    <td align="center"><input type="checkbox" id="cid" value="<?php echo $row[0]?>"></td>
     <td><?php echo $row[1]?></td>
     <td align="center"><?php echo $row[6]?>课时</td>
     <td align="center">&yen; <?php echo $row[2]?></td>
     <td align="center"><?php echo $row[3]?></td>
     <td align="center"><?php echo $row[4]?></td>
     <td align="center"><?php echo $row[5]?></td>
-    <td align="center">编辑 | <a href="video_add.php?menu=<?php echo $menu?>&courseId=<?php echo $row[0]?>">上传视频</a></td>
+    <td align="center"><input type="button" id="show" data-id="<?php echo $row[0]?>" value="上架"></input>|<input type="button" data-id="<?php echo $row[0]?>" id="N_show" value="下架"></input>|编辑 | <a href="video_add.php?menu=<?php echo $menu?>&courseId=<?php echo $row[0]?>">上传视频</a></td>
   </tr>
 <?php
 }

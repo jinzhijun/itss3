@@ -50,6 +50,40 @@ $(function(){
 				}
 			});
 		});
+
+	$('#agree').click(function(){
+
+		$.ajax({
+			url:"json/teacher_add.php",
+			data:{action:"agree",uid:'<?php echo $row['uid']?>'},
+			datatype:"json",
+			type:"post",
+			success:function(e){
+				alert(e.msg);
+				if(e.success == 0){
+					
+				}
+			}
+
+		});
+	});
+
+	$('#N_agree').click(function(){
+
+		$.ajax({
+			url:"json/teacher_add.php",
+			data:{action:"N_agree",uid:'<?php echo $row['uid']?>'},
+			datatype:"json",
+			type:"post",
+			success:function(e){
+				alert(e.msg);
+				if(e.success == 0){
+					
+				}
+			}
+
+		});
+	});
 	});
 	
 function upload(){//上传图片
@@ -104,6 +138,7 @@ function upload(){//上传图片
     <td><input type="button" value="保存" id="add"></td>
   </tr>
 </table>
-
+<input type="button" value="同意" id="agree">
+<input type="button" value="不同意" id="N_agree">
 </body>
 </html>
