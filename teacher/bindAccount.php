@@ -9,6 +9,46 @@ include_once("inc/chklogin.php");
 <title>中国ITSS云教育平台</title>
 <script src="http://www.itss3.cn/itss/JS/jquery.min.js" type="text/javascript"></script>
 <link href="../css/style0509.css" rel="stylesheet" type="text/css">
+<script type="text/javascript">
+$(function(){
+
+  $('#save').click(function(){
+    var pass=$('#pass').val();
+    var pass_1=$('#pass_1').val();
+    var pass_old=$('#pass_old').val();
+    var uid=$('#uid').val();
+    
+    if(pass==""){
+      alert('密码不能为空'); return false;
+      }
+    if(pass_1.length < 6){
+    	alert('密码至少6位');
+    	return false;
+    }
+    if(pass_1==''){
+      alert('两次密码不一致'); return false;
+      }
+    if(pass!==pass_1){
+       alert('两次密码不一致'); return false;  
+    }
+    $.ajax({
+      url:"json/info.php",
+      data:{action:"modify",pass:pass,uid:uid,pass_old:pass_old},
+      dataType:"json",
+      type:"post",
+		success: function(e){
+			if(e.success==0){
+				alert(e.msg);
+			}else{
+				alert(e.msg);
+			}
+		}
+      });
+    });
+  
+  });
+</script>
+
 <style>
 body{background:#fafafa;}
 </style>
@@ -37,6 +77,37 @@ include_once("../inc/new_header.php");
     </td>
     <td valign="top" class="content">
     <h2>账号安全</h2>
+    <table width="100%" border="0" cellspacing="5" cellpadding="0" id="userinfo">
+    <tr>
+    <td width="100" align="left">
+   旧密码：
+    </td>
+    <td width="100" align="left">
+        <input type="password" id="pass_old" name="pass_old">
+    </td>
+    </tr>    
+    <tr>
+    <td width="100" align="left">
+   新密码：
+    </td>
+    <td width="100" align="left">
+        <input type="password" id="pass_1" name="pass_1">
+    </td>
+    </tr>
+    <tr>
+        <td width="100" align="left">
+   确认新密码：
+    </td>
+    <td width="100" align="left">
+        <input type="hidden" id="uid" name="uid" value="<?php echo $username;?>">
+        <input type="password" id="pass" name="pass">
+    </td>
+    </tr>
+    <tr>
+         <td>&nbsp;</td>
+        <td><input type="button" value="提交" id="save"></td>
+    </tr>
+    </table>
     </td>
   </tr>
 </table>

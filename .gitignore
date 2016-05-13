@@ -1,7 +1,9 @@
 #images
 /images/
+#files
+/files/
 #inc
-/inc/
+/inc/config.php/
 /admin/inc/
 #Runtime
 /Runtime/

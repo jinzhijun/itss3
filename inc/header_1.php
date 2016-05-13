@@ -2,11 +2,10 @@
 	<div id="header" class="wrap">
     	<div class="logo"><img src="/images/logo-w.png"></div>
         <ul class="nav">
-        	<li><a href="../index.php">首页</a></li>
-        	<li><a href="#">课程体系</a></li>
-        	<li><a href="../find.php">找课程</a></li>
-        	<li><a href="../live.php">直播</a></li>
-        	<li><a href="index.php">学习中心</a></li>
+        	<li><a href="/index.php">首页</a></li>
+        	<li><a href="/CourseList.php">全部课程</a></li>
+        	<li><a href="/zCourseList.php">直播课</a></li>
+        	<li><a href="/user/">学习中心</a></li>
         </ul>
         	
         <ul class="sNav">
@@ -27,6 +26,7 @@ $(function(){
 </script>
 
 <?php
+ini_set('date.timezone','Asia/Shanghai');
 $strTimeToString = "000111222334455556666667";
 $strWenhou = array('夜深了！','凌晨了！','早上好！','上午好！','中午好！','下午好！','晚上好！','夜深了！');
 

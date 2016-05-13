@@ -1,7 +1,7 @@
 <?php
 include_once("../inc/config.php");
 
-$teacher_id=1;
+$teacher_id=$_POST['teacher_id'];
 $cateid=$_POST['cateid'];
 $title=$_POST['title'];
 $img=$_POST['img'];

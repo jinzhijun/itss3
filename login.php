@@ -6,6 +6,12 @@
 <script src="http://www.itss3.cn/itss/JS/jquery.min.js" type="text/javascript"></script>
 <script type="text/javascript">
 $(function(){
+	$('.lrFrm').keyup(function(e){
+		if(e.keyCode==13){
+			$('#loginBut').click();
+			}
+		})
+	
 	$('#loginBut').click(function(){
 		var username=$('#username').val();
 		var password=$('#password').val();

@@ -20,7 +20,7 @@ header{height:60px; box-shadow:1px 1px 10px #ccc; background:#fff;}
 #header #q:focus{ background-color:#fff; border:#3598db solid 1px; width:250px;}
 
 #user-box{position:absolute; top:10px; right:0;}
-#user-box font{display:block; color:#999; height:35px; width:50px; float:left; font:16px/39px '微软雅黑'; margin-right:5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+#user-box font{display:block; color:#999; height:35px; width:60px; float:left; font:12px/15px '微软雅黑'; margin-right:5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; padding-top:5px;}
 #user-box span{display:block; width:35px; height:35px; border:#f1f1f1 solid 2px; border-radius:100px; overflow:hidden;  float:left;}
 #user-box span img{width:100%; height:100%;}
 
@@ -65,10 +65,12 @@ header{height:60px; box-shadow:1px 1px 10px #ccc; background:#fff;}
 
 /*分类*/
 #dh{font:14px/40px '微软雅黑'; padding-top:10px;}
-#cate{border:#ddd solid 1px; height:45px; margin-top:10px;}
+#dh span{display:inline-block;}
+#dh span *{float:right; display:block; margin-right:10px; font:14px/40px '微软雅黑'; color:#000; text-decoration:none;}
+#cate{border:#ddd solid 1px; height:45px; font:14px/40px '微软雅黑';}
 #cate span{float:left; display:block; width:80px; text-align:center; font:13px/45px '微软雅黑'; color:#999;}
 #cate a{display:inline-block; font:13px/45px '微软雅黑'; color:#000; text-decoration:none; margin-left:30px;}
-#cate a:hover{color:#3598db;}
+#cate a:hover,#dh a:hover{color:#3598db;}
 #cate b{float:left; display:block; font:13px/45px '微软雅黑';}
 
 /*课程列表*/

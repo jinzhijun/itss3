@@ -6,6 +6,9 @@ if(empty($userid)){
 	}
 $url = $_SERVER['PHP_SELF']; //获取当前页面名称 
 $filename= substr( $url , strrpos($url , '/')+1 );
+if($classify==1){
+	header("location: /teacher/");
+	}
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -42,11 +45,7 @@ function study(){
 				str=str+'<b>'+d.title+'</b>'+d.description;
 				str=str+'<strong>';
 				str=str+'讲师：'+d.name;
-				if(d.genre==0){
-					str=str+'<a href="../courseMain.php?id='+d.id+'">马上学习</a></strong>';
-					}else{
-						str=str+'<a href="../live_detail.php?id='+d.id+'">马上学习</a></strong>'
-						}
+				str=str+'<a href="../details.php?id='+d.id+'">马上学习</a></strong>';
 				str=str+'</strong>';
 				str=str+'</p>';
 				str=str+'</li>';
@@ -91,7 +90,7 @@ body{margin-top:80px;}
 				$rs=mysql_query($sql);
 				while($row=mysql_fetch_array($rs)){
 					$str.='<li>';
-					$str.='<a href="../course.php?id='.$row[0].'"><img src="'.$row[2].'">';
+					$str.='<a href="../details.php?id='.$row[0].'"><img src="'.$row[2].'">';
 					$str.='<p>';
 					$str.='<b>'.$row[1].'</b>';
 					$str.='<span>'.$row[3].'</span>';
