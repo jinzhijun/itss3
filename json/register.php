@@ -13,7 +13,7 @@ if($action == 'register'){
 	$sql = "INSERT INTO it_user_teacher(uid,name,introduction,phone,qq,email,addtime) VALUES ('$userid','$name','$description','$phone','$qq','$email',NOW()) ON DUPLICATE KEY UPDATE  name='$name', phone='$phone',introduction='$description',phone='$phone',qq='$qq',email='$email'";
 	$res = $db_pdo->exec($sql);
 	if($res){
-		json(0,'审核信息已发出');
+		json(0,'您的申请已提交，我们会尽快与您联系');
 	}
 }
 ?>

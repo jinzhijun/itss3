@@ -12,6 +12,7 @@ if(!empty($id)){
 	$row=mysql_fetch_array($rs);
 	if($row){
 		$Tname=$row['name'];
+		$phone=$row['phone'];
 		$headimg=$row['headimg'];
 		$introduction=$row['introduction'];
 		}
@@ -38,15 +39,22 @@ $(function(){
 		var name=$('#name').val();
 		var headimg=$('#headimg').val();
 		var introduction=$('#introduction').val();
+		var phone=$('#phone').val();
+		var passw=$('#passw').val();
 		
 		$.ajax({
 			url: "json/teacher_add.php",
-			data: {id:'<?php echo $id?>', name:name, headimg:headimg, introduction:introduction, action:'<?php echo $action?>'},
+			data: {id:'<?php echo $id?>',phone:phone,name:name, headimg:headimg, introduction:introduction, action:'<?php echo $action?>',passw:passw},
 			dataType:"json",
 			type: "POST",
 			success: function(e){
-				alert(e.msg);
-				if(e.success==0) window.location.href='teacher.php?menu=<?php echo $menu?>';
+				if(e.success==0){
+					sms(passw,phone);
+					alert(e.msg);
+					window.location.href="teacher.php?menu=<?php echo $menu;?>";	
+				}else{
+					alert(e.msg);
+				}
 				}
 			});
 		});
@@ -56,12 +64,12 @@ $(function(){
 		$.ajax({
 			url:"json/teacher_add.php",
 			data:{action:"agree",uid:'<?php echo $row['uid']?>'},
-			datatype:"json",
+			dataType:"json",
 			type:"post",
 			success:function(e){
 				alert(e.msg);
 				if(e.success == 0){
-					
+					window.location.href="teacher.php?menu=<?php echo $menu;?>";
 				}
 			}
 
@@ -73,19 +81,29 @@ $(function(){
 		$.ajax({
 			url:"json/teacher_add.php",
 			data:{action:"N_agree",uid:'<?php echo $row['uid']?>'},
-			datatype:"json",
+			dataType:"json",
 			type:"post",
 			success:function(e){
 				alert(e.msg);
 				if(e.success == 0){
-					
+					window.location.href="teacher.php?menu=<?php echo $menu;?>";
 				}
 			}
 
 		});
 	});
 	});
-	
+	function sms(passw,phone){
+			$.ajax({
+			url: "../phpsms/teacher_sms.php",
+			data: {passw:passw,phone:phone},
+			dataType:"json",
+			type: "POST",
+			success: function(e){
+
+				}
+			});
+	}
 function upload(){//上传图片
 	$.ajaxFileUpload({
 		url: '../upload.php',
@@ -116,6 +134,11 @@ function upload(){//上传图片
   <tr>
     <td width="100" align="right">讲师姓名：</td>
     <td><input type="text" id="name" value="<?php echo $Tname?>"></td>
+  </tr>
+  <tr>
+    <td width="100" align="right">手机号码：</td>
+    <td><input type="text" id="phone" value="<?php echo $phone?>"></td>
+    <td><input type="hidden" id="passw" value="<?php echo rand(1111,9999);?>"></td>
   </tr>
   <tr>
     <td align="right">讲师照片：</td>

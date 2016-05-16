@@ -21,7 +21,7 @@ function del(id){
 	if(confirm('确认要删除该讲师吗？')){
 		$.ajax({
 			url: "json/teacher_add.php",
-			data: {id:id, action:'del'},
+			data: {id:id,uid:"<?php echo $row['uid'];?>",action:'del'},
 			type: "POST",
 			dataType:"json",
 			success: function(e){
@@ -54,7 +54,7 @@ function del(id){
   </tr>
  <?php
 $Page_size=15;
-$sql="select it_user_teacher.id ,it_user_teacher.headimg ,it_user_teacher.name,it_user_teacher.introduction ,(case it_user.classify when '0' then '未通过' else '通过' end) as con from it_user left join it_user_teacher on it_user.id = it_user_teacher.uid where name like '%$keyword%' order by id desc";
+$sql="SELECT it_user_teacher.id ,it_user_teacher.uid,it_user_teacher.headimg ,it_user_teacher.name,it_user_teacher.introduction ,(case it_user.classify when '0' then '未通过' else '通过' end) as con from it_user left join it_user_teacher on it_user.id = it_user_teacher.uid where name like '%$keyword%' order by id desc";
 $result=mysql_query($sql); 
 $count = mysql_num_rows($result); 
 $page_count = ceil($count/$Page_size);
