@@ -8,8 +8,8 @@ ini_set('date.timezone','Asia/Shanghai');
 
 //判断用户是否登录
 if(empty($userid)){
-//	header("Location: login.php");
-//	exit;
+	// header("Location: login.php");
+	// exit;
 	$username="学生_".rand(111111,999999);
 	}
 

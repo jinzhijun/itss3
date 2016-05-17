@@ -39,8 +39,10 @@ $(function(){
 		success: function(e){
 			if(e.success==0){
 				alert(e.msg);
+        location.reload();
 			}else{
 				alert(e.msg);
+        location.reload();
 			}
 		}
       });

@@ -49,7 +49,7 @@ $(function(){
       dataType:"html",
       type:"post",
       success: function(e){
-		 if(e==''){
+		 if(e.success=='0'){
 			 alert("设置成功");
 			 location.reload();
 			 } 
