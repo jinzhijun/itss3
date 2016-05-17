@@ -20,9 +20,9 @@ if($action=='add'){
 	$sql_i = "INSERT INTO it_user (username,password,classify,addtime) VALUES ('$phone',md5('$passw'),'1',NOW()) ON DUPLICATE KEY UPDATE username='$phone',password=md5('$passw'),classify='1',addtime=NOW()";
 	mysql_query($sql_i);
 	$num = mysql_insert_id();
-	$sql="INSERT INTO it_user_teacher(name,uid, headimg,phone,introduction, addtime)values('$name','$num','$headimg','$phone','$introduction', NOW())";
+	$sql="INSERT INTO it_user_teacher(name,uid, headimg,phone,introduction, addtime)VALUES('$name','$num','$headimg','$phone','$introduction', NOW()) ON DUPLICATE KEY UPDATE name='$name',uid='$num',headimg='$headimg',introduction='$introduction',addtime=NOW()";
 	mysql_query($sql);
-	json(0,'创建成功');
+	json(0,'success');
 }elseif($action=='edit'){
 	$sql="UPDATE it_user_teacher set name='$name',phone='$phone', headimg='$headimg', introduction='$introduction' where id='$id'";
 	mysql_query($sql);

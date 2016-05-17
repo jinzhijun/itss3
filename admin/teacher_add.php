@@ -37,7 +37,7 @@ $(function(){
 	
 	$('#add').click(function(){
 		var name=$('#name').val();
-		var headimg=$('#headimg').val();
+		var headimg=$('#img').val();
 		var introduction=$('#introduction').val();
 		var phone=$('#phone').val();
 		var passw=$('#passw').val();
@@ -49,7 +49,9 @@ $(function(){
 			type: "POST",
 			success: function(e){
 				if(e.success==0){
-					sms(passw,phone);
+					if(e.msg=='success'){
+						sms(passw,phone);
+					}
 					alert(e.msg);
 					window.location.href="teacher.php?menu=<?php echo $menu;?>";	
 				}else{
@@ -114,7 +116,7 @@ function upload(){//上传图片
 		success: function(data, status){
 			$('#tab label img').remove();
 			$('#tab label').append('<img src="'+data.msg.url+'">');
-			$('#headimg').attr('value',data.msg.url);
+			$('#img').attr('value',data.msg.url);
 			}
 		});
 	}
@@ -143,7 +145,7 @@ function upload(){//上传图片
   <tr>
     <td align="right">讲师照片：</td>
     <td>
-    <input type="hidden" id="headimg" value="<?php echo $headimg?>">
+    <input type="hidden" id="img" value="<?php echo $headimg?>">
     <label for="file">
     <input type="file" name="file" id="file">
     <?php
