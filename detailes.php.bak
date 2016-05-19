@@ -193,22 +193,9 @@ body{background:#f2f2f2;}
     <?php
     	}else{
     		if(empty($userid)){
-    			echo "<div><p>你还没登录请登录!</p></div>";
-    		}else{
-    			$sql_1 = "SELECT * FROM it_user_study WHERE userid = $userid AND courseid = $id";
-    			$res_db = mysql_query($sql_1);
-    			$result = mysql_fetch_array($res_db);
-    			if($result['addtime']){
-    ?>
-    	    <iframe id="cc" src="" frameborder="0" scrolling="no"></iframe>
-    	    <?php
-    			}else{    				
-    		?>
-    		<div><p><h1>你还没有购买，弹出购买页面</h1></p></div>
-    		<?php
-    			}
+    			echo "<div> </div>";
     		}
-    		?>
+    ?>
 
     <?php
     	}

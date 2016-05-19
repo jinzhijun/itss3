@@ -40,7 +40,8 @@ require_once("lib/alipay_submit.class.php");
         //需http://格式的完整路径，不能加?id=123这类自定义参数，不能写成http://localhost/
 
         //卖家支付宝帐户
-        $seller_email = $_POST['WIDseller_email'];
+        // $seller_email = $_POST['WIDseller_email'];
+        $seller_email = 'sunhongjun@nc-info.com';
         //必填
 
         //商户订单号
@@ -48,7 +49,8 @@ require_once("lib/alipay_submit.class.php");
         //商户网站订单系统中唯一订单号，必填
 
         //订单名称
-        $subject = $_POST['WIDsubject'];
+        // $subject = $_POST['WIDsubject'];
+        $subject = '云教育课程';
         //必填
 
         //付款金额
