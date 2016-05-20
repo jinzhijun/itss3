@@ -1,24 +1,30 @@
 <?php 
 	include '../inc/pdo.php';
+	include '../inc/user_info.php';
 
-	$uid = $_POST['userid'];
 	$priceLast = $_POST['priceLast'];
 	$action  = $_POST['action'];
-	$coursid = $_POST['coursid'];
+	$courseid = $_POST['courseid'];
+	$teacher_id = $_POST['teacher_id'];
+	$title = $_POST['title'];
 
 	if($action=='pay'){
 		@$orderNo = build_order_no();
-		// $db_pdo->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-		// try{
-		// 	$db_pdo->beginTransaction();
-		// 	$db_pdo->exec("INSERT INTO it_order (userid,orderid,status,price,addtime) VALUES ($userid,$orderNo,'1',$priceLast,NOW())");
-		// 	$db_pdo->commit();
-		// }catch(PDOException $e){
 
-		// }
+		//创建订单明细，状态未支付
+		$sql_item = "INSERT INTO it_order_item (orderid,status,course_id,teacher_id,title,price,addtime) VALUES ('$orderNo','1','$courseid','$teacher_id','$title','$priceLast',NOW())";
+		 $res_item = $db_pdo->exec($sql_item);
 
+		//创建订单，订单状态为1,未支付
 
-		json(0,"$orderNo");
+		$sql = "INSERT INTO it_order (userid,orderid,status,price,addtime) VALUES ($userid,$orderNo,'1',$priceLast,NOW())";
+		$res = $db_pdo->exec($sql);
+
+		if($res){
+			json(0,"$orderNo");	
+		}
+		
+		
 	}
 
 	function build_order_no(){

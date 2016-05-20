@@ -19,7 +19,7 @@
 ?>
 <html>
 <head>
-	<title>Order</title>
+	<title><?php echo $result['title'];?></title>
 <script src="http://www.itss3.cn/itss/JS/jquery.min.js" type="text/javascript"></script>
 	<script type="text/javascript">
 		$(function(){
@@ -35,17 +35,20 @@
       // });
 
 			$('#orderpay').click(function(){
-					var userid='<?php echo $userid; ?>;';
-          var priceLast='<?php echo $priceLast;?>';
+          			var priceLast='<?php echo $priceLast;?>';
 					var courseid='<?php echo $courseid;?>';
+					var teacher_id='<?php echo $result['teacher_id'];?>';
+					var title='<?php echo $result['title'];?>';
 				$.ajax({
 					type:"post",
 					url:"json/order_confirm.php",
-					data:{action:"pay",userid:userid,priceLast:priceLast,courseid:courseid},
+					data:{action:"pay",priceLast:priceLast,courseid:courseid,teacher_id:teacher_id,title:title},
 					dataType:"json",
 					success: function(e){
-            $('#WIDout_trade_no').val(e.msg);
-            $('#order').submit();
+						if(e.success == 0){
+            				$('#WIDout_trade_no').val(e.msg);
+            				$('#order').submit();
+            			}
 					}
 
 				});
@@ -115,7 +118,7 @@
 
 <form id="order" action="alipay/alipayapi.php" method="post">
   <input type="hidden" id="WIDout_trade_no" name="WIDout_trade_no" >
-  <input type="hidden" id="WIDtotal_fee" name="WIDtotal_fee" value="0.01">
+  <input type="hidden" id="WIDtotal_fee" name="WIDtotal_fee" value="<?php echo $priceLast; ?>">
 </form>
 </body>
 </html>

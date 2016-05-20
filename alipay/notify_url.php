@@ -1,4 +1,6 @@
 <?php
+include "../inc/pdo.php";
+// include "../inc/user_info.php";
 /* *
  * 功能：支付宝服务器异步通知页面
  * 版本：3.3
@@ -38,6 +40,7 @@ if($verify_result) {//验证成功
 	//支付宝交易号
 
 	$trade_no = $_POST['trade_no'];
+	$total_fee = $_POST['total_fee'];
 
 	//交易状态
 	$trade_status = $_POST['trade_status'];
@@ -52,11 +55,53 @@ if($verify_result) {//验证成功
 		//该种交易状态只在两种情况下出现
 		//1、开通了普通即时到账，买家付款成功后。
 		//2、开通了高级即时到账，从该笔交易成功时间算起，过了签约时的可退款时限（如：三个月以内可退款、一年以内可退款等）后。
+		// $sql="INSERT INTO it_user_study (userid) VALUES ('66')";
+  //   	$db_pdo->exec("$sql");
 
         //调试用，写文本函数记录程序运行情况是否正常
         //logResult("这里写入想要调试的代码变量值，或其他运行的结果记录");
+    	//订单表order
+
+  //   	$sql_order = "UPDATE it_order SET status= '3' WHERE orderid = '$out_trade_no'";
+  //   	$db_pdo->exec($sql_order);
+  //   	//订单明细
+		// $sql_item = "UPDATE it_order_item SET status = '3' WHERE orderid = '$out_trade_no'";
+		// $db_pdo->exec($sql_item);
+		// //it_order_pay_log表
+		// $sql_log ="INSERT INTO it_order_pay_log(userid,orderid,payment,money,addtime) VALUES ('$userid','$out_trade_no','支付宝支付','$total_fee',NOW())";
+		// $db_pdo->exec($sql_log);
+		// //it_user_study
+		// $sql_courseid = "SELECT course_id FROM it_order_item WHERE orderid = '$out_trade_no'";
+		// $stmt = $db_pdo->query($sql_courseid);
+		// $result = $stmt->fetch(PDO::FETCH_ASSOC);
+		// $cid = $result['course_id'];
+		// $sql_study = "INSERT INTO it_user_study(userid,courseid,addtime) VALUES ('$userid','$cid',NOW())";
+		// $db_pdo->exec($sql_study);
     }
+
     else if ($_POST['trade_status'] == 'TRADE_SUCCESS') {
+
+    	//订单表order
+    	$sql_order = "UPDATE it_order SET status= '3' WHERE orderid = '$out_trade_no'";
+    	$db_pdo->exec($sql_order);
+    	//$userid 
+    	$sql_userid = "SELECT userid FROM it_order WHERE orderid = '$out_trade_no'";
+    	$stmt = $db_pdo->query($sql_userid);
+    	$res = $stmt->fetch(PDO::FETCH_ASSOC);
+    	$userid = $res['userid'];
+    	//订单明细
+		$sql_item = "UPDATE it_order_item SET status = '3' WHERE orderid = '$out_trade_no'";
+		$db_pdo->exec($sql_item);
+		//it_order_pay_log表
+		$sql_log ="INSERT INTO it_order_pay_log(userid,orderid,payment,money,addtime) VALUES ('$userid','$out_trade_no','支付宝支付','$total_fee',NOW())";
+		$db_pdo->exec($sql_log);
+		//it_user_study
+		$sql_courseid = "SELECT course_id FROM it_order_item WHERE orderid = '$out_trade_no'";
+		$stmt = $db_pdo->query($sql_courseid);
+		$result = $stmt->fetch(PDO::FETCH_ASSOC);
+		$cid = $result['course_id'];
+		$sql_study = "INSERT INTO it_user_study(userid,courseid,addtime) VALUES ('$userid','$cid',NOW())";
+		$db_pdo->exec($sql_study);
 		//判断该笔订单是否在商户网站中已经做过处理
 			//如果没有做过处理，根据订单号（out_trade_no）在商户网站的订单系统中查到该笔订单的详细，并执行商户的业务程序
 			//如果有做过处理，不执行商户的业务程序

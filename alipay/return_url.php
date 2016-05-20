@@ -1,5 +1,5 @@
 <?php
-include "../inc/config.php";
+include "../inc/pdo.php";
 include "../inc/user_info.php";
 /* * 
  * 功能：支付宝页面跳转同步通知页面
@@ -46,30 +46,46 @@ if($verify_result) {//验证成功
 	$trade_status = $_GET['trade_status'];
 
 
-    if($_GET['trade_status'] == 'TRADE_FINISHED' || $_GET['trade_status'] == 'TRADE_SUCCESS') {
-		$sql="UPDATE it_order set status=1 where orderid='$out_trade_no'";
-		mysql_query($sql); //修改订单状态
-		$sql="update it_order_item set status='1' where orderid='$out_trade_no'";
-		mysql_query($sql);  //修改订单状态
-		$sql="insert into it_order_pay_log(userid,orderid,payment,money,addtime)values('$userid','$out_trade_no','支付宝支付','$total_fee',NOW())";
-		mysql_query($sql);//记录支付日志
+    if($_GET['trade_status'] == 'TRADE_FINISHED') {
+    	echo "trade_status=".$_GET['trade_status'];
+		// $sql="UPDATE it_order set status=1 where orderid='$out_trade_no'";
+		// mysql_query($sql); //修改订单状态
+		// $sql="insert into it_order_pay_log(userid,orderid,payment,money,addtime)values('$userid','$out_trade_no','支付宝支付','$total_fee',NOW())";
+		// mysql_query($sql);//记录支付日志
 		
-		$sql="select course_id from it_order_item where orderid='$out_trade_no'";
-		$rs=mysql_query($sql);
-		while($row=mysql_fetch_array($rs)){
-			$course_id=$row[0];
-			$study="insert into it_user_study(userid,courseid,addtime)values('$userid','$course_id',NOW())";
-			mysql_query($study);
-			}
+		// $sql="select course_id from it_order_item where orderid='$out_trade_no'";
+		// $rs=mysql_query($sql);
+		// while($row=mysql_fetch_array($rs)){
+		// 	$course_id=$row[0];
+		// 	$study="insert into it_user_study(userid,courseid,addtime)values('$userid','$course_id',NOW())";
+		// 	mysql_query($study);
+		// 	}
 		//判断该笔订单是否在商户网站中已经做过处理
 			//如果没有做过处理，根据订单号（out_trade_no）在商户网站的订单系统中查到该笔订单的详细，并执行商户的业务程序
 			//如果有做过处理，不执行商户的业务程序
-    }
-    else {
+    }else if ($_GET['trade_status'] == 'TRADE_SUCCESS') {
+    	//订单表order
+    	$sql_order = "UPDATE it_order SET status= '3' WHERE orderid = '$out_trade_no'";
+    	$db_pdo->exec($sql_order);
+    	//订单明细
+		$sql_item = "UPDATE it_order_item SET status = '3' WHERE orderid = '$out_trade_no'";
+		$db_pdo->exec($sql_item);
+		//it_order_pay_log表
+		$sql_log ="INSERT INTO it_order_pay_log(userid,orderid,payment,money,addtime) VALUES ('$userid','$out_trade_no','支付宝支付','$total_fee',NOW())";
+		$db_pdo->exec($sql_log);
+		//it_user_study
+		$sql_courseid = "SELECT course_id FROM it_order_item WHERE orderid = '$out_trade_no'";
+		$stmt = $db_pdo->query($sql_courseid);
+		$result = $stmt->fetch(PDO::FETCH_ASSOC);
+		$cid = $result['course_id'];
+		$sql_study = "INSERT INTO it_user_study(userid,courseid,addtime) VALUES ('$userid','$cid',NOW())";
+		$db_pdo->exec($sql_study);
+
+		header("Location: ../user/order.php");	
+
+    }else {
       echo "trade_status=".$_GET['trade_status'];
     }
-	header("Location: ../user/order.php");	
-	echo "验证成功<br />";
 
 	//——请根据您的业务逻辑来编写程序（以上代码仅作参考）——
 	

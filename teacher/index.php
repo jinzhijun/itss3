@@ -38,6 +38,9 @@ include_once("../inc/new_header.php");
     </td>
     <td valign="top" class="content">
     <h2>点播课程</h2>
+    <div id="sNav">
+      <a href="video_add.php">创建点播课程</a>
+    </div>
     <table width="100%" border="0" cellspacing="1" cellpadding="0" id="list">
       <tr>
         <th>选择</th>

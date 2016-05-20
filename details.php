@@ -31,12 +31,12 @@ $sql="select
 	it_course_video_time.e_time,
 	it_course_video_time.studentUrl,
 	it_course_video_time.studentToken,
-	it_user_study.addtime
+	(select count(*) from it_user_study where courseid=it_course.id and userid='$userid') as isBuy
 	from it_course
 	left join it_user_teacher on it_user_teacher.uid=it_course.teacher_id
 	left join it_course_video_time on it_course_video_time.courserid=it_course.id
-	left join it_user_study on it_user_study.courseid=it_course.id
 	where it_course.id='$id'";
+	//left join it_user_study on it_user_study.courseid=it_course.id
 $rs=mysql_query($sql);
 $row=mysql_fetch_array($rs);
 if($row){
@@ -51,7 +51,7 @@ if($row){
 	$introduction=$row['introduction'];
 	$studentUrl=$row['studentUrl'];
 	$studentToken=$row['studentToken'];
-	$isBuy=$row['addtime'];
+	$isBuy=$row['isBuy'];
 	$b_time=$row['b_time'];
 	$e_time=$row['b_time'];
 	}
@@ -62,12 +62,14 @@ if($genre==0){
 	$str='';
 	$sql="select * from it_course_video where course_id='$id'";
 	$rs=mysql_query($sql);
+	$i=0;
 	while($row=mysql_fetch_array($rs)){
 		if($row['url']==''){
 			$str.='<h2>'.$row['title'].'</h2>';
 			}else{
-				$str.='<a href="javascript:;" data-url="'.$row['url'].'?nickname='.$username.'">'.$row['title'].'</a>';
+				$str.='<a href="javascript:;" data-url="'.$row['url'].'?nickname='.$username.'" id="vod'.$i.'">'.$row['title'].'</a>';
 				}
+		$i++;
 		}
 }else{
 	//判断直播时间
@@ -88,21 +90,30 @@ if($genre==0){
 <script type="text/javascript">
 $(function(){
 	//判断用户是否购买该课程
-	var isBuy='<?php echo $isBuy?>';
-	var price='<?php echo $price?>';
-	var genre='<?php echo $genre?>';
-	if((isBuy=='') && (price>0)){
+	var isBuy=<?php echo $isBuy?>;
+	var price=<?php echo $price?>;
+	var genre=<?php echo $genre?>;
+	if((isBuy==0) && (price>0)){
 		$('#mask').show();
+		$('#cc').attr('src','no.html');
+		$('#buy_info').css({left: ($(window).width()-400)/2}).show();
 		}else{
-			$('#cc').attr('src','<?php echo $studentUrl?>?nickname=<?php echo $username?>&token=<?php echo $studentToken?>&uid=<?php sprintf($username,32,"1","STR_PAD_LEFT")?>')
+			var url=$('#ML #vod0').attr('data-url');
+			$('#cc').attr('src',url);
+			$('#ML #vod0').addClass('on');
 			}
+	
+	if(genre==1){
+		$('#cc').attr('src','<?php echo $studentUrl?>?nickname=<?php echo $username?>&token=<?php echo $studentToken?>&uid=<?php sprintf($username,32,"1","STR_PAD_LEFT")?>')
+		}
+		
 	$('#ML a').click(function(){
 		var url=$(this).attr('data-url');
 		$('#cc').attr('src',url);
 		$('#ML a').removeClass('on');
 		$(this).addClass('on');
 		});
-	$('#ML a').eq(0).click();
+		
 	$('#ML b').click(function(){
 		var w=$(window).width();
 		var fw=$('#cc').width();
@@ -121,6 +132,11 @@ $(function(){
 	$("#cc").on("load",function(){
        $('#loading').hide();
     });
+	
+	//关闭购买页面
+	$('#buy_info .close').click(function(){
+		$('#buy_info').hide();
+		});
 	
 	//安全退出
 	$('#user-box font').click(function(){
@@ -155,6 +171,13 @@ body{background:#f2f2f2;}
 #back{text-decoration:none;position:absolute; z-index:999; top:0; left:10px; display:block; background:url(images/back1.png);height:50px; width:30px;opacity:1;}
 #back:hover{opacity:0.8;}
 #loading{position:absolute; z-index:99999; top:200px; left:0; width:100%; text-align:center; color:#fff; font-size:15px; display:none;}
+#buy_info{position:absolute; z-index:99999; top:200px; background:#333; width:400px; height:250px; display:none;}
+#buy_info div{ overflow:hidden;}
+#buy_info .close{ float:right; font:40px/40px ''; color:#fff; text-decoration:none; margin-right:10px;}
+#buy_info .title{color:#fff; font:22px/30px '微软雅黑'; text-align:center}
+#buy_info .price{ text-align:center; padding-top:50px;}
+#buy_info .price b{display:inline-block; font:25px/40px '微软雅黑'; color:orange; padding:0 10px;}
+#buy_info .price a{ display:inline-block; border:green solid 1px; border-radius:100px; font:18px/40px '微软雅黑'; color:green; text-decoration:none; padding:0 30px;}
 </style>
 </head>
 
@@ -185,34 +208,7 @@ body{background:#f2f2f2;}
 		?>
         
     </div>
-    <?php
-    	if($price<=0){
-    
-    ?> 
-    <iframe id="cc" src="" frameborder="0" scrolling="no"></iframe>
-    <?php
-    	}else{
-    		if(empty($userid)){
-    			echo "<div><p>你还没登录请登录!</p></div>";
-    		}else{
-    			$sql_1 = "SELECT * FROM it_user_study WHERE userid = $userid AND courseid = $id";
-    			$res_db = mysql_query($sql_1);
-    			$result = mysql_fetch_array($res_db);
-    			if($result['addtime']){
-    ?>
-    	    <iframe id="cc" src="" frameborder="0" scrolling="no"></iframe>
-    	    <?php
-    			}else{    				
-    		?>
-    		<div><p><h1>你还没有购买，弹出购买页面</h1></p></div>
-    		<?php
-    			}
-    		}
-    		?>
-
-    <?php
-    	}
-    ?>
+    <iframe id="cc" src="no.html" frameborder="0" scrolling="no"></iframe>
     <div id="ML">
         <h1>课程目录</h1><b>目录</b>
         <?php echo $str;?>
@@ -245,6 +241,12 @@ body{background:#f2f2f2;}
   </tr>
 </table>
 </section>
+
+<div id="buy_info">
+<div><a href="javascript:;" class="close">×</a></div>
+<div class="title">该课程为付费课程</div>
+<div class="price"><b>&yen;<?php echo $price?></b>&nbsp;&nbsp;&nbsp;&nbsp;<a href="toOrder.php?courseid=<?php echo $id?>">立即购买</a></div>
+</div>
 
 <?php include_once("inc/footer_1.php")?>
 </body>
