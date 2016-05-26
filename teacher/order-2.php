@@ -1,6 +1,7 @@
 <?php
-include_once("inc/config.php");
+include_once("inc/pdo.php");
 include_once("inc/chklogin.php");
+include_once("../page.class.php");
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -16,7 +17,19 @@ body{background:#fafafa;}
 
 <body>
 <?php
-include_once("../inc/new_header.php");
+  include_once("../inc/new_header.php");
+  $sql_uid = "SELECT uid FROM it_user_teacher WHERE uid = $userid";
+  $data_uid = $db_pdo->query($sql_uid);
+  $result_uid = $data_uid->fetch(PDO::FETCH_NUM);
+  $uid = $result_uid['0'];
+  $sql = "SELECT count(*) FROM it_order_item WHERE teacher_id = $uid AND status = 2";
+  $count = $db_pdo->query($sql);
+  $count_1 = $count->fetchAll(PDO::FETCH_NUM);
+  $total = $count_1[0][0];
+  $num = 5;
+  $page = new Page($total,$num);
+  $sql_1 = "SELECT * FROM it_order_item WHERE teacher_id = $uid AND status = 2 {$page->limit}";
+  $result = $db_pdo->query($sql_1,PDO::FETCH_ASSOC);
 ?>
 <table width="100%" border="0" cellspacing="20" cellpadding="0" class="wrap" id="teacher_box">
   <tr>
@@ -43,13 +56,31 @@ include_once("../inc/new_header.php");
             <th>购买课程</th>
             <th>金额</th>
             <th>购买时间</th>
-            <th>状态</th>
-            <th>操作</th>
           </tr>
+          <?php
+            $i = 0;
+            while($data = $result->fetch()) {
+              $i++;
+          ?>
           <tr>
-            <td height="80" colspan="6" align="center">暂无数据</td>
+          <td  align="center"><?php echo $data['orderid']?></td>
+          <td  align="center"><?php echo $data['title']?></td>
+          <td  align="center"><?php echo $data['price']?></td>
+          <td  align="center"><?php echo $data['addtime']?></td>
           </tr>
+          <?php
+              }
+              if(empty($i)){
+            ?>
+            <td height="80" colspan="6" align="center">暂无数据</td>
         </table>
+          <?php
+              }else{
+                  echo "</table>";
+                  echo $page->fpage();
+              }
+          ?>
+
     </td>
   </tr>
 </table>
