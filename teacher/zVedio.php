@@ -6,7 +6,7 @@ $str='';
 $sql="select 
 	it_course.id, 
 	it_course.title, 
-	(case it_course.isShow when '0' then '离线' else '在线' end) as a, 
+	(case it_course.isShow when '0' then '未审核' else '审核通过' end) as a, 
 	it_course_video_time.b_time,
 	it_course_video_time.e_time,
 	it_course_video_time.webnum,
@@ -24,7 +24,11 @@ while($row=$rs->fetch(PDO::FETCH_ASSOC)){
       $str.='  <td align="center">'.$row["b_time"].'</td>';
       $str.='  <td align="center">'.$row["e_time"].'</td>';
       $str.='  <td align="center">'.$row["a"].'</td>';
-      $str.='  <td align="center"><a href="javascript:;" id="teacher" data-id="'.$row['webnum'].'" data-pwd="'.$row['teacherToken'].'">开始上课</a></td>';
+      if ($row['b_time']) {		
+     	 $str.='  <td align="center"><a href="javascript:;" id="teacher" data-id="'.$row['webnum'].'" data-pwd="'.$row['teacherToken'].'" data-step="'.$row['a'].'">开始上课</a></td>';
+      }else{
+      	$str.='<td align="center">等待审核</td>';
+      }
       $str.='</tr>';
 	}
 ?>
@@ -37,13 +41,33 @@ while($row=$rs->fetch(PDO::FETCH_ASSOC)){
 <script type="text/javascript">
 $(function(){
 	$('body #teacher').click(function(){
+		var number=$(this).attr("data-id")
+		var teacherToken=$(this).attr("data-pwd")
+		var step=$(this).attr("data-step");
+//		if((step=='未审核') || (number=='')){
+//			alert('该课程，未审核通过');
+//			return false;
+//			}
+		var t=($(window).width()-$('#gensee').width())/2;
+		$('#mask').show();
+		$('#gensee').css({left:t}).show().attr('src','http://itss3.gensee.com/training/site/r/'+number+'?nickname=教师姓名&token='+teacherToken);
 		
-		})
+		setTimeout(function(){
+			$('#mask a').click();
+			},60000)
+		
+		});
+	$('#mask a').click(function(){
+		$('#gensee').hide(); $('#mask').hide();
+		});
 	});
 </script>
 <link href="../css/style0509.css" rel="stylesheet" type="text/css">
 <style>
 body{background:#fafafa;}
+#mask{position:absolute; z-index:9; left:0; top:0; width:100%; height:100%; background:#000; opacity:0.5; display:none;}
+#mask a{ position:fixed; top:5px; right:5px; width:30px; height:30px; font:bold 25px/28px '微软雅黑'; text-align:center; background:#fff; color:#000; text-decoration:none;}
+#gensee{position:fixed; z-index:10; top:100px; display:none;}
 </style>
 </head>
 
@@ -87,6 +111,7 @@ include_once("../inc/new_header.php");
     </td>
   </tr>
 </table>
-<iframe id="gensee" src="" width="880" height="300" frameborder="0"></iframe>
+<div id="mask"><a href="javascript:;">×</a></div>
+<iframe id="gensee" src="" width="880" height="500" frameborder="0" scrolling="no"></iframe>
 </body>
 </html>

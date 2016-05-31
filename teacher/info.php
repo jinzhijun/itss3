@@ -1,5 +1,4 @@
-<?php
-include_once("inc/config.php");
+﻿<?php
 include_once("inc/chklogin.php");
 include_once("inc/pdo.php");
 $sql = "SELECT * FROM it_user_teacher WHERE uid = :uid";

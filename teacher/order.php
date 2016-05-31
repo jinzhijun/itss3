@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 include_once("inc/pdo.php");
 include_once("inc/chklogin.php");
 include_once("../page.class.php");

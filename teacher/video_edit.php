@@ -54,6 +54,7 @@ $(function(){
 		var service=$('#service').val();
 		var content=$('#content').val();
 		var teacher_id=$('#teacher_id').val();
+		var cid='<?php echo $_GET['cid'];?>';
 		
 		if(cateid==0){
 			alert('请选择课程分类'); return false;
@@ -61,16 +62,16 @@ $(function(){
 		if(title==''){
 			alert('请填写课程名'); return false;
 			}
-		if(img==''){
-			alert('请上传课程封面'); return false;
-			}
+		// if(img==''){
+		// 	alert('请上传课程封面'); return false;
+		// 	}
 		if(content==0){
 			alert('请填写课程详细描述'); return false;
 			}
 		
 		$.ajax({
 			url:"json/zVedio_add.php",
-			data:{action:'video',cateid:cateid,teacher_id:teacher_id,title:title, img:img, description:description, price:price, service:service, content:content},
+			data:{action:'edit',cateid:cateid,teacher_id:teacher_id,title:title, img:img, description:description, price:price, service:service, content:content,cid:cid},
 			dataType:"json",
 			type:"post",
 			success: function(e){
@@ -111,6 +112,10 @@ body{background:#fafafa;}
 <body>
 <?php
 include_once("../inc/new_header.php");
+$cid = $_GET['cid'];
+$sql = "SELECT * FROM it_course WHERE id = $cid";
+$stmt = $db->query($sql);
+$result = $stmt->fetch(PDO::FETCH_ASSOC);
 ?>
 <div id="divbtn">
 <gs:gs-upload id="divbtn" site="itss3.gensee.com" browseid="divbtn" loginname="admin@itss3.com" ctx="training" password="888888" filetype="media"/>
@@ -132,7 +137,7 @@ include_once("../inc/new_header.php");
     <a href="bindAccount.php">账号安全</a>
     </td>
     <td valign="top" class="content">
-    <h2>点播课程</h2>
+    <h2>编辑点播课程</h2>
     <table width="100%" border="0" cellspacing="5" cellpadding="0" id="userinfo">
   <tr>
     <td width="100">课程分类：</td>
@@ -140,27 +145,27 @@ include_once("../inc/new_header.php");
     </tr>
   <tr>
     <td>课程标题：</td>
-    <td><input type="text" id="title"><input type="hidden" id="teacher_id" name="teacher_id" value="<?php echo $userid;?>"></input></td>
+    <td><input type="text" id="title" value="<?php echo $result['title'];?>"><input type="hidden" id="teacher_id" name="teacher_id" value="<?php echo $userid;?>"></input></td>
   </tr>
   <tr>
     <td>封面图片：</td>
-    <td><input type="hidden" id="img" value=""><label for="file">上传课程封面<input type="file" name="file" id="file"></label></td>
+    <td><input type="hidden" id="img" value=""><label for="file"><img src="<?php echo $result['img']?>"><input type="file" name="file" id="file"></label></td>
   </tr>
   <tr>
     <td>课程简述：</td>
-    <td><textarea id="description"></textarea></td>
+    <td><textarea id="description"><?php echo $result['description'];?></textarea></td>
   </tr>
   <tr>
     <td>课程价格：</td>
-    <td><input type="text" id="price"></td>
+    <td><input type="text" id="price" value="<?php echo $result['price'];?>"></td>
   </tr>
   <tr>
     <td>适应人群：</td>
-    <td><input type="text" id="service"></td>
+    <td><input type="text" id="service" value="<?php echo $result['service'];?>"></td>
   </tr>
   <tr>
     <td>课程描述：</td>
-    <td><textarea rows="15" id="content" style="width:100%;"></textarea></td>
+    <td><textarea rows="15" id="content" style="width:100%;"><?php echo $result['content'];?></textarea></td>
   </tr>
   <tr>
     <td>&nbsp;</td>

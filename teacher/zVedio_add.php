@@ -69,15 +69,17 @@ $(function(){
 		
 		$.ajax({
 			url:"json/zVedio_add.php",
-			data:{cateid:cateid,teacher_id:teacher_id,title:title, img:img, description:description, price:price, service:service, content:content},
-			dataType:"html",
+			data:{action:'zvideo',cateid:cateid,teacher_id:teacher_id,title:title, img:img, description:description, price:price, service:service, content:content},
+			dataType:"json",
 			type:"post",
 			success: function(e){
-				if(e==''){
-					window.location.href='zVedio.php';
+				if(e.success=='0'){
+						alert(e.msg);
+						window.location.href='zVedio.php';
 					}else{
-						alert(e)
-						}
+						alert('添加失败');
+						window.location.href='zVedio.php';						
+					}
 				}
 			})
 		});
