@@ -13,9 +13,9 @@ while($row=$rs->fetch(PDO::FETCH_ASSOC)){
       $str.='  <td align="center">'.$row["num"].'</td>';
       $str.='  <td align="center">'.$row["a"].'</td>';
       if ($row['a'] == '未审核') {
-        $str.='  <td align="center"><a href="video_edit.php?cid='.$row['id'].'">编辑</a> | <a href="javascript:;" id="upload">上传视频</a></td>';
+        $str.='  <td align="center"><a href="video_edit.php?cid='.$row['id'].'">编辑</a> | <a href="video_upload.php?cid='.$row['id'].'">上传视频</a></td>';
       }else{
-        $str.='  <td align="center"><a href="javascript:;" id="upload">上传视频</a></td>';
+        $str.='  <td align="center"><a href="video_upload.php?cid='.$row['id'].'">上传视频</a></td>';
       }
       $str.='</tr>';
   }

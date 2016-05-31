@@ -31,7 +31,7 @@ if($action == 'zvideo'){
 	$sql = "UPDATE it_course SET title='$title',description='$description',price='$price',service='$service',content='$content',isShow='0',img='$img' WHERE id = '$cid'";
 	$stmt = $db->query($sql);
 	if($stmt){
-		json(0,$sql);
+		json(0,'编辑成功');
 	}
 }
 
