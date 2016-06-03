@@ -16,7 +16,11 @@ body{background:#fafafa;}
 
 <body>
 <?php
-include_once("../inc/new_header.php");
+  include_once("../inc/new_header.php");
+  $sql = "SELECT * FROM it_user_cash_apply WHERE uid = $userid";
+  $stmt_price = $db->query($sql);
+  $result = $stmt_price->fetch(PDO::FETCH_ASSOC);
+  // var_dump($result);
 ?>
 <table width="100%" border="0" cellspacing="20" cellpadding="0" class="wrap" id="teacher_box">
   <tr>
@@ -38,7 +42,7 @@ include_once("../inc/new_header.php");
     <td valign="top" class="content">
     <h2>提现申请</h2>
     <div id="frm">
-    可提现金额：0.00元<input type="text"><input type="button" value="提现">
+    可提现金额：<?php var_dump($result); ?>元<input type="text"><input type="button" value="提现">
     </div>
     <table width="100%" border="0" cellspacing="1" cellpadding="0" id="list">
           <tr>

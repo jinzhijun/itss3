@@ -46,7 +46,7 @@ if($row[0]>0){
 	exit;
 	}
 session_start();
-$vcode = rand(111111,999999);
+$vcode = rand(2222,9999);
 $_SESSION['vcode']=$vcode;
 $post_data = "account=cf_ITSS&password=RQptvu&mobile=".$mobile."&content=".rawurlencode("您的验证码是：".$vcode."。请不要把验证码泄露给其他人。");
 //密码可以使用明文密码或使用32位MD5加密

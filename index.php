@@ -361,8 +361,8 @@ $(function(){
 <section id="banner">
     <div id="focus">
         <ul>
-            <li><a href="#" target="_blank"><img src="images/ITSS.jpg"/></a></li>
-            <li><a href="#" target="_blank"><img src="images/itss01.jpg" /></a></li>
+         	<li><a href="#" target="_blank"><img src="images/itss01.jpg" /></a></li>
+            <li><a href="#" target="_blank"><img src="images/itss3.jpg"/></a></li>
         </ul>
     </div>
 </section>

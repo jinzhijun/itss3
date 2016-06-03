@@ -10,98 +10,30 @@ include_once("inc/chklogin.php");
 <script src="http://www.itss3.cn/itss/JS/jquery.min.js" type="text/javascript"></script>
 <script src="http://new.itss3.cn/xheditor/xheditor-1.1.13-zh-cn.min.js" type="text/javascript"></script>
 <script src="js/ajaxfileupload.js" type="text/javascript"></script>
-<script type="text/javascript" src="static.gensee.com/webcast/static/sdk/js/gssdk.js"></script>
 <script type="text/javascript">
 $(function(){
-	$('#content').xheditor({upImgUrl:"../upload.php",upImgExt:"jpg,jpeg,gif,png"});
-	$.ajax({
-		url:'json/cate.php',
-		dataType:"json",
-		type:"post",
-		success: function(e){
-			var data=e.d;
-			for(var i=0;i<data.length;i++){
-				var d=data[i];
-				$('#cateid option').each(function(){
-					if(d.parentid==$(this).val()){
-						var str='';
-						if(d.depth>0){
-							str='|';
-							for(var j=0; j<d.depth;j++){
-								str=str+'__';
-								}
-							}
-						$(this).after('<option value="'+d.id+'">'+str+d.name+'</option>')
-						}
-					})
-				}
-			}
-		});
-		
-	var count = -1;
-	$('#file').live('change',function(){
-		count++;
-		upload();
-		$("#file").replaceWith('<input type="file" id="file" name="file" title="'+count+'">'); 
-		});
-	
-	$('#save').click(function(){
-		var cateid=$('#cateid').val();
-		var title=$('#title').val();
-		var img=$('#img').val();
-		var description=$('#description').val();
-		var price=$('#price').val();
-		var service=$('#service').val();
-		var content=$('#content').val();
-		var teacher_id=$('#teacher_id').val();
+	$('#add').click(function(){
 		var cid='<?php echo $_GET['cid'];?>';
-		
-		if(cateid==0){
-			alert('请选择课程分类'); return false;
-			}
-		if(title==''){
-			alert('请填写课程名'); return false;
-			}
-		// if(img==''){
-		// 	alert('请上传课程封面'); return false;
-		// 	}
-		if(content==0){
-			alert('请填写课程详细描述'); return false;
-			}
-		
+		var title=$('#title').val();
+		var url_video=$('#url_video').val();
+
 		$.ajax({
-			url:"json/zVedio_add.php",
-			data:{action:'edit',cateid:cateid,teacher_id:teacher_id,title:title, img:img, description:description, price:price, service:service, content:content,cid:cid},
+			url:"json/upload_url.php",
+			data:{title:title,cid:cid,url_video:url_video},
 			dataType:"json",
 			type:"post",
 			success: function(e){
 				if(e.success=='0'){
 						alert(e.msg);
-						window.location.href='index.php';
+						location.reload();
 					}else{
 						alert('添加失败');
-						window.location.href='index.php';						
+						location.reload();		
 					}
 				}
 			})
 		});
-	
-	});
-
-function upload(){//上传图片
-	$.ajaxFileUpload({
-		url: '../upload.php',
-		type: 'post',
-		secureuri: false,
-		fileElementId: 'file',
-		dataType: 'json',
-		success: function(data, status){
-			$('#userinfo label img').remove();
-			$('#userinfo label').append('<img src="'+data.msg.url+'">');
-			$('#img').attr('value',data.msg.url);
-			}
-		});
-	}
+})
 </script>
 <link href="../css/style0509.css" rel="stylesheet" type="text/css">
 <style>
@@ -147,15 +79,13 @@ body{background:#fafafa;}
     <td valign="top" class="content">
     <h2>上传视频</h2>
    <div>
-   	<p>#########</p>
-   	<p><?php echo $_GET['cid'];?></p>
-   	<form action="video_upload.php?frm=add" method="post" >
-   		<label>标题</label><input type="text" name="title"><br>
+   	<div>
+   		<label>标题</label><input type="text" id="title" name="title"><br>
    		<!-- <input type="hidden" name="cid" value=""> -->
    		<br>
-   		<label>URL</label><input type="text" name="url"><br>
-   		<input type="submit" name="submit" value="Add">
-   	</form>
+   		<label>URL</label><input type="text" id="url_video" name="url"><br>
+   		<input type="button" name="add" id="add" value="Add">
+   	</div>
 
    	</div>
    	<table width="100%" border="0" cellspacing="1" cellpadding="0" id="list">
@@ -165,7 +95,7 @@ body{background:#fafafa;}
   	  <th>操作</th>
   	</tr>
  	<?php
-   		// $sql_1="SELECT * FROM it_course_video WHERE course_id=$_GET['cid'] ORDER BY id ASC";
+   		$sql_1="SELECT * FROM it_course_video WHERE course_id = $cid ORDER BY id ASC";
 		$stmt = $db->query($sql_1);
 		while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
    	?>

@@ -45,8 +45,7 @@ $(function(){
 			window.location.href='/user/';
 			}else{
 				window.location.href='/teacher/';
-				}
-		
+			}
 		});
 	//搜索
 	$('#q').keyup(function(e){
