@@ -13,6 +13,8 @@ $pass = md5($_POST['pass']);
 $username = $_POST['uid'];
 $pass_old = $_POST['pass_old'];
 $userid = $_POST['userid'];
+$u_name = $_POST['u_name'];
+$account = $_POST['account'];
 
 if($action=='save'){
 	$sql="INSERT into it_user_teacher(uid,name,headimg,introduction,phone,qq,email,addtime)values('$userid','$name','$img','$description','$phone','$qq','$email',NOW()) ON DUPLICATE KEY UPDATE  name='$name', phone='$phone',headimg='$img',introduction='$description',phone='$phone',qq='$qq',email='$email'";
@@ -32,6 +34,13 @@ $rs=$db->query($sql);
 		}
 	}else{
 		json(1,'原密码不正确！');
+	}
+}elseif ($action =='alipay') {
+	$userid=$_SESSION['userid'];
+	$sql_alipay = "INSERT INTO it_user_alipay (uid,name,alipay,addtime) VALUES ('$userid','$u_name','$account',NOW()) ON DUPLICATE KEY UPDATE uid='$userid',name='$u_name',alipay='$account',addtime=NOW()";
+	$stmt_alipay = $db->query($sql_alipay);
+	if ($stmt_alipay) {
+		json(0,'支付宝账户更新成功');
 	}
 }
 

@@ -47,6 +47,22 @@ $(function(){
 		}
       });
     });
+
+    $('#but').click(function(){
+      var u_name = $('#u_name').val();
+      var account = $('#account').val();
+
+      $.ajax({
+        url:"json/info.php",
+        data:{action:'alipay',u_name:u_name,account:account},
+        type:"post",
+        dataType:"json",
+        success:function(e){
+          alert(e.msg);
+          loaction.reload();
+        }
+      });
+    });
   
   });
 </script>
@@ -59,6 +75,9 @@ body{background:#fafafa;}
 <body>
 <?php
 include_once("../inc/new_header.php");
+$sql_pay = "SELECT * FROM it_user_alipay WHERE uid = $userid";
+$stmt_pay = $db->query($sql_pay);
+$result = $stmt_pay->fetch(PDO::FETCH_ASSOC);
 ?>
 <table width="100%" border="0" cellspacing="20" cellpadding="0" class="wrap" id="teacher_box">
   <tr>
@@ -109,6 +128,29 @@ include_once("../inc/new_header.php");
          <td>&nbsp;</td>
         <td><input type="button" value="提交" id="save"></td>
     </tr>
+    </table>
+    <table width="100%" border="0" cellspacing="5" cellpadding="0" id="useaccount">
+      <tr>
+        <td width="100" align="left">
+          姓名:
+        </td>
+        <td width="100" align="left">
+          <input type="text" name="u_name" id="u_name" value="<?php echo $result['name'];?>">
+        </td>
+      </tr>
+      <tr>
+        <td width="100" align="left">
+          支付宝帐号:
+        </td>
+        <td width="100" align="left">
+          <input type="text" name="account" id="account" value="<?php echo $result['alipay'];?>">
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <input type="button" id="but" value="确认">
+        </td>
+      </tr>
     </table>
     </td>
   </tr>

@@ -92,8 +92,11 @@ if($verify_result) {//验证成功
     	//订单明细
 		$sql_item = "UPDATE it_order_item SET status = '3' WHERE orderid = '$out_trade_no'";
 		$db_pdo->exec($sql_item);
+		//it_user_money
+		$sql_money = "INSERT INTO it_user_money (uid,money) VALUES ('$userid','$total_fee') ON DUPLICATE KEY UPDATE SET money=money+'$total_fee'";
+		$stmt_money = $db_pdo->query($sql_money);
 		//it_order_pay_log表
-		$sql_log ="INSERT INTO it_order_pay_log(userid,orderid,payment,money,addtime) VALUES ('$userid','$out_trade_no','支付宝支付','$total_fee',NOW())";
+		$sql_log ="INSERT INTO it_order_pay_log(userid,orderid,payment,money,addtime) VALUES ('$userid','$out_trade_no','支付宝支付no','$total_fee',NOW())";
 		$db_pdo->exec($sql_log);
 		//it_user_study
 		$sql_courseid = "SELECT course_id FROM it_order_item WHERE orderid = '$out_trade_no'";
