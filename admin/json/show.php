@@ -3,7 +3,6 @@ include "../inc/pdo.php";
 
 $action =$_POST['action'];
 $cid = $_POST['cid'];
-
 if($action =='show'){
 	$sql = "UPDATE it_course SET isShow = '1' WHERE id = $cid";
 	$res = $db_pdo->exec($sql);
@@ -20,6 +19,16 @@ if($action =='show'){
 	}else{
 		json(1,'下架失败');
 	}	
+}elseif ($action == 'up_1') {
+	$sql_up = "UPDATE it_course SET isShow = '1' WHERE id = $cid";
+	if ($db_pdo->exec($sql_up)) {
+		json(0,'上架成功');	
+	}
+}elseif ($action =='up_2') {
+	$sql_down = "UPDATE it_course SET isShow = '0' WHERE id = $cid";
+	if ($db_pdo->exec($sql_down)) {
+		json(0,'下架成功');	
+	}
 }
 
 ?>

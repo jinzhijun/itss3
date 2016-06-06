@@ -42,8 +42,38 @@ $(function(){
 				}
 			});
 		});
-		
-		
+	
+	$('body #del').click(function(){
+		var del_id=$(this).attr("del_id");
+
+		$.ajax({
+			url:"json/show.php",
+			data:{action:"up_2",cid:del_id},
+			type:"post",
+			dataType:"json",
+			success: function(e){
+				alert(e.msg);
+				location.reload();
+			}
+		});
+
+	});	
+
+	$('body #up').click(function(){
+		var up_id = $(this).attr("up_id");
+
+		$.ajax({
+			url:"json/show.php",
+			data:{action:"up_1",cid:up_id},
+			type:"post",
+			dataType:"json",
+			success: function(e){
+				alert(e.msg);
+				location.reload();
+			}
+		});
+	});
+
 	$.datetimepicker.setLocale('zh');
 	$('#b_time').datetimepicker({
 		lang:'ch',
@@ -141,9 +171,9 @@ while($row=mysql_fetch_array($rs)){
     <td align="center"><?php echo $row['e_time']?></td>
     <td align="center">
     <a href="sh_zb_video.php?menu=11&courseid=<?php echo $row[0]?>">审核</a>
-    
-    编辑 | <a href="video_add.php?menu=<?php echo $menu?>&courseId=<?php echo $row[0]?>">上传视频</a> |
-    <a href="javascript:;" class="add_time" id="<?php echo $row[0]?>">设置时间</a>
+   <a href="#">编辑</a>|<input type="button" id='up' up_id="<?php echo $row[0];?>" value="上架" >|<input type="button" id="del" del_id="<?php echo $row['0'];?>" value="下架">
+       <!-- <a href="video_add.php?menu=<?php echo $menu?>&courseId=<?php echo $row[0]?>">上传视频</a> |<a href="javascript:;" class="add_time" id="<?php echo $row[0]?>">设置时间</a> 
+    -->
     </td>
   </tr>
 <?php

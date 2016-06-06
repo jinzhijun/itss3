@@ -121,7 +121,7 @@ function search_teacher(key){
 			var data=e.d;
 			for(var i=0; i<data.length; i++){
 				var o=data[i];
-				$('#teacher_list ul').append('<li id="'+o.id+'">'+o.name+'</li>');
+				$('#teacher_list ul').append('<li id="'+o.uid+'">'+o.name+'</li>');
 				}
 			//选择讲师
 			$('#teacher_list ul li').click(function(){

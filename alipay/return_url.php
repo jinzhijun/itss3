@@ -73,6 +73,9 @@ if($verify_result) {//验证成功
 		//it_order_pay_log表
 		$sql_log ="INSERT INTO it_order_pay_log(userid,orderid,payment,money,addtime) VALUES ('$userid','$out_trade_no','支付宝支付','$total_fee',NOW())";
 		$db_pdo->exec($sql_log);
+		//it_user_money
+		$sql_money = "INSERT INTO it_user_money (uid,money) VALUES ('$userid','$total_fee')";
+		$stmt_money = $db_pdo->exec($sql_money);
 		//it_user_study
 		$sql_courseid = "SELECT course_id FROM it_order_item WHERE orderid = '$out_trade_no'";
 		$stmt = $db_pdo->query($sql_courseid);
