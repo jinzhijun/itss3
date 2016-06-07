@@ -79,6 +79,8 @@ if($verify_result) {//验证成功
 		$sql_log ="INSERT INTO it_order_pay_log(userid,orderid,payment,money,addtime) VALUES ('$userid','$out_trade_no','支付宝支付re','$total_fee',NOW())";
 		$db_pdo->exec($sql_log);
 		//it_user_money
+		// $sql_money = "INSERT INTO it_user_money (uid,money) VALUES ('99','$total_fee')";
+
 		$sql_money = "INSERT INTO it_user_money (uid,money) VALUES ('$userid','$total_fee') ON DUPLICATE KEY UPDATE SET money=money+'$total_fee'";
 		$stmt_money = $db_pdo->query($sql_money);
 		//it_user_study
