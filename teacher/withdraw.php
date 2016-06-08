@@ -8,6 +8,7 @@ include_once("inc/chklogin.php");
 <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" charset="utf-8">
 <title>中国ITSS云教育平台</title>
 <script src="http://www.itss3.cn/itss/JS/jquery.min.js" type="text/javascript"></script>
+<script src="./js/jquery-1.11.3.min.js"></script>
 <link href="../css/style0509.css" rel="stylesheet" type="text/css">
 <style>
 body{background:#fafafa;}
@@ -42,7 +43,7 @@ body{background:#fafafa;}
     <td valign="top" class="content">
     <h2>提现申请</h2>
     <div id="frm">
-    可提现金额：<?php echo $result['money'];  ?>元<input type="text"><input type="button" value="提现">
+    可提现金额：<span id="toMoney" value="<?php echo $result['money'];?>"><?php echo $result['money']; ?></span>元<input type="text" id="inMoney"><input id="check_money"  type="button" value="提现">
     </div>
     <table width="100%" border="0" cellspacing="1" cellpadding="0" id="list">
           <tr>
@@ -56,9 +57,38 @@ body{background:#fafafa;}
           <tr>
             <td height="80" colspan="6" align="center">暂无提现记录</td>
           </tr>
-        </table>    </td>
+        </table>   
+        </td>
   </tr>
 </table>
+<script type="text/javascript">
+	$("#check_money").click(function(){
+    // var totalMoney = $('#toMoney').val();
+		var totalMoney = <?php echo $result['money'];?>;
+    var in_money   = $('#inMoney').val();
+    if (!isNaN(in_money)) {
+      if (totalMoney<in_money) {
+        alert("金额不足");
+        return false;
+      }else{
+        $.ajax({
+          url:'json/cash.php',
+          data:{in_money:in_money,uid:<?php echo $userid;?>},
+          type:"post",
+          dataType:"json",
+          success: function(e){
+            if (e.success == 0) {
+              alert(e.msg);
+            }
+          }
+        });
+      }      
+    }else{
+      alert("请填写正确的金额");
+    }
 
+
+	});
+</script>
 </body>
 </html>

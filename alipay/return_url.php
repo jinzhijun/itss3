@@ -78,18 +78,17 @@ if($verify_result) {//验证成功
 		//it_order_pay_log表
 		$sql_log ="INSERT INTO it_order_pay_log(userid,orderid,payment,money,addtime) VALUES ('$userid','$out_trade_no','支付宝支付re','$total_fee',NOW())";
 		$db_pdo->exec($sql_log);
-		//it_user_money
-		// $sql_money = "INSERT INTO it_user_money (uid,money) VALUES ('99','$total_fee')";
-
-		$sql_money = "INSERT INTO it_user_money (uid,money) VALUES ('$userid','$total_fee') ON DUPLICATE KEY UPDATE SET money=money+'$total_fee'";
-		$stmt_money = $db_pdo->query($sql_money);
 		//it_user_study
-		$sql_courseid = "SELECT course_id FROM it_order_item WHERE orderid = '$out_trade_no'";
+		$sql_courseid = "SELECT course_id,teacher_id FROM it_order_item WHERE orderid = '$out_trade_no'";
 		$stmt = $db_pdo->query($sql_courseid);
 		$result = $stmt->fetch(PDO::FETCH_ASSOC);
 		$cid = $result['course_id'];
+		$tid = $result['teacher_id'];
 		$sql_study = "INSERT INTO it_user_study(userid,courseid,addtime) VALUES ('$userid','$cid',NOW())";
 		$db_pdo->exec($sql_study);
+		//it_user_money
+		$sql_money = "INSERT INTO it_user_money (uid,money) VALUES ('$tid','$total_fee') ON DUPLICATE KEY UPDATE  money=money+$total_fee";
+		$stmt_money = $db_pdo->query($sql_money);
 
 		header("Location: ../user/order.php");	
 
