@@ -29,6 +29,14 @@ if($action =='show'){
 	if ($db_pdo->exec($sql_down)) {
 		json(0,'下架成功');	
 	}
+}elseif ($action == 'del') {
+	$sql_del = "DELETE FROM it_course WHERE id = $cid";
+	$res_del = $db_pdo->exec($sql_del);
+	if ($res_del) {
+		json(0,"删除成功");
+	}else{
+		json(1,'删除失败');
+	}
 }
 
 ?>

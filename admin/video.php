@@ -52,6 +52,25 @@ $(function(){
 			});
 		});
 
+
+		$('body #del').click(function(){
+		var cid=$(this).attr("data-id");
+			
+		$.ajax({
+			url:"json/show.php",
+			data:{action:"del",cid:cid},
+			dataType:"json",
+			type:"post",
+			success: function(e){
+				if(e.success==0){
+					alert(e.msg);
+					location.reload();
+					}
+				}
+			});
+		});
+
+
 	});
 </script>
 <link href="css/style.css" rel="stylesheet" type="text/css">
@@ -114,7 +133,7 @@ while($row=mysql_fetch_array($rs)){
     <td align="center"><?php echo $row[3]?></td>
     <td align="center"><?php echo $row[4]?></td>
     <td align="center"><?php echo $row[5]?></td>
-    <td align="center"><input type="button" id="show" data-id="<?php echo $row[0]?>" value="上架"></input>|<input type="button" data-id="<?php echo $row[0]?>" id="N_show" value="下架"></input>|编辑 | <a href="video_add.php?menu=<?php echo $menu?>&courseId=<?php echo $row[0]?>">上传视频</a></td>
+    <td align="center"><input type="button" id="show" data-id="<?php echo $row[0]?>" value="上架"></input>|<input type="button" data-id="<?php echo $row[0]?>" id="N_show" value="下架"></input>|<input type="button" data-id="<?php echo $row[0]?>" id="edit" value="编辑"></input>||<input type="button" data-id="<?php echo $row[0]?>" id="del" value="删除"></input> <a href="video_add.php?menu=<?php echo $menu?>&courseId=<?php echo $row[0]?>">上传视频</a></td>
   </tr>
 <?php
 }

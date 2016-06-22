@@ -21,7 +21,10 @@ body{background:#fafafa;}
   $sql = "SELECT * FROM it_user_money WHERE uid = $userid";
   $stmt_price = $db->query($sql);
   $result = $stmt_price->fetch(PDO::FETCH_ASSOC);
-  // var_dump($result);
+
+  $sql_profit = "SELECT id,money,addtime,(CASE status WHEN '0' THEN '等待审核' ELSE '审核通过' END) AS sta FROM it_user_cash_apply WHERE uid = $userid";
+  $stmt_profit = $db->query($sql_profit);
+  $result_profit = $stmt_profit->fetch(PDO::FETCH_ASSOC);
 ?>
 <table width="100%" border="0" cellspacing="20" cellpadding="0" class="wrap" id="teacher_box">
   <tr>
@@ -43,25 +46,52 @@ body{background:#fafafa;}
     <td valign="top" class="content">
     <h2>提现申请</h2>
     <div id="frm">
-    可提现金额：<span id="toMoney" value="<?php echo $result['money'];?>"><?php echo $result['money']; ?></span>元<input type="text" id="inMoney"><input id="check_money"  type="button" value="提现">
+    可提现金额：<span id="toMoney" value="<?php echo $result['money'];?>"><?php echo $result['money']; ?></span>元<input type="text" id="inMoney" onkeyup="value=value.replace(/[^\d{1,}\.\d{1,}|\d{1,}]/g,'')" ><input id="check_money"  type="button" value="提现">
     </div>
     <table width="100%" border="0" cellspacing="1" cellpadding="0" id="list">
           <tr>
             <th>提现编号</th>
             <th>提现金额</th>
             <th>申请时间</th>
-            <th>处理时间</th>
             <th>状态</th>
-            <th>操作</th>
           </tr>
+          <?php 
+            if($result_profit){
+          ?>
+          <tr>
+            <td height="40" align="center"><?php echo $result_profit['id'];?></td>
+            <td height="40" align="center"><?php echo $result_profit['money'];?></td>
+            <td height="40" align="center"><?php echo $result_profit['addtime'];?></td>
+            <td height="40" align="center">&yen; <?php echo $result_profit['sta'];?></td>
+          </tr>
+          <?php
+            }else{
+          ?>
           <tr>
             <td height="80" colspan="6" align="center">暂无提现记录</td>
           </tr>
+           <?php
+            }
+            ?>
+
         </table>   
         </td>
   </tr>
 </table>
 <script type="text/javascript">
+  // 限制input只输入数字
+  // function IsNum(e){
+  //   var k = window.event ? e.keyCode : e.which;
+  //   if (((k >=48) && (k<=57)) || k == 8 || k ==0) {
+
+  //   }else{
+  //     if (window.event) {
+  //       window.event.returnValue = false;
+  //     }else{
+  //       e.preventDefaulr();
+  //     }
+  //   }
+  // }
 	$("#check_money").click(function(){
     // var totalMoney = $('#toMoney').val();
 		var totalMoney = <?php echo $result['money'];?>;

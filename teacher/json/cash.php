@@ -4,7 +4,7 @@
 	$in_money = $_POST['in_money'];
 	$uid	  = $_POST['uid'];
 
-	if(is_int($in_money)){
+	if(is_numeric($in_money)){
 
 		$sql_cash = "INSERT INTO it_user_cash_apply (uid,money,status,addtime) VALUES ('$uid','$in_money','0',NOW())";
 

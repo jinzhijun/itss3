@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 include "inc/pdo.php";
 include "inc/chk.php";
 include '../inc/page.class.php';
@@ -57,17 +57,17 @@ $(function(){
 
 <body>
 <?php include 'inc/menu.php';?>
-<a href="link_add.php?menu=22">添加友情链接</a>
 <table width="100%" border="0" cellspacing="1" cellpadding="0" id="list">
   <tr>
     <th>序号</th>
-    <th>名称</th>
-    <th>图片路径</th>
-    <th>链接</th>
-    <th>位置</th>
+    <th>姓名</th>
+    <th>提现金额</th>
+    <th>支付宝帐号</th>
+    <th>申请时间</th>
     <th>操作</th>
   </tr>
 <?php
+
 	$sql = 'select * from it_link';
 	$result = $db_pdo->prepare($sql);
 	$result->execute();
